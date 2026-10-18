@@ -1,0 +1,59 @@
+
+        :root {
+            --font-main: 'Plus Jakarta Sans', sans-serif;
+            --font-mono: 'JetBrains Mono', ui-monospace, monospace;
+
+            --background: #FBFCFF;
+            --primaryBlue: #A8B7F0;
+            --primaryPurp: #CDBCF6;
+            --secondaryBlue: #C7D9F7;
+            --secondaryPurp: #E0D6F8;
+            --darkBlue: #2A2E63;
+            --darkPurp: #4B3B8F;
+            --accentsBlue: #DDEBFF;
+            --accentsPurple: #E3E7FF;
+            --textlight: #FBFCFF;
+            --textdark: #0D1321;
+
+            
+            --text-muted: #5B6285;
+            --input-bg: #FFFFFF;
+        }
+
+
+        body {
+          margin: 0;
+         min-height: 100vh;
+         overflow-x: hidden;
+         font-family: var(--font-main);
+         font-weight: 400;
+         letter-spacing: -0.01em;
+         -webkit-font-smoothing: antialiased;
+         background: var(--background);
+         color: var(--textdark);
+
+
+
+        }
+
+        h1, h2 { 
+             font-weight: 800; 
+            }
+
+
+        h3, button { 
+            font-weight: 600; 
+        }
+
+
+       label, p { 
+        font-weight: 500; 
+    }
+
+
+
+.mono {
+     font-family: var(--font-mono);
+     }
+
+     
