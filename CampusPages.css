@@ -355,3 +355,78 @@
     .notification-actions { flex-direction: column; align-items: flex-end; }
     .latest-label { display: none; }
 }
+
+/* Keep secondary copy comfortable to read on both desktop and mobile. */
+.crumb { font-size: 11px; }
+.today-label { font-size: 9px; }
+.brand small { font-size: 9px; }
+.side-caption { font-size: 10px; }
+.term-card strong { font-size: 11px; }
+.term-card div>span { font-size: 10px; }
+.student-mini strong { font-size: 10px; }
+.student-mini small { font-size: 9px; }
+.eyebrow { font-size: 9px; }
+.page-lede { font-size: 12px; }
+.button { font-size: 11px; }
+.summary-top { font-size: 10px; }
+.summary-foot { font-size: 9px; }
+.panel-heading h2 { font-size: 14px; }
+.panel-heading p { font-size: 11px; }
+.records-pill { font-size: 9px; }
+.search-box input { font-size: 10px; }
+.select-wrap select, .text-button { font-size: 9px; }
+.records-table th { font-size: 9px; }
+.records-table td { font-size: 10px; }
+.date-cell small, .course-cell small { font-size: 9px; }
+.course-cell strong { font-size: 9px; }
+.time-cell { font-size: 9px !important; }
+.status-badge { font-size: 9px; }
+.row-action { font-size: 10px; }
+.table-footer, .demo-note { font-size: 9px; }
+.notification-overview strong { font-size: 11px; }
+.notification-overview p, .filter-tab, .latest-label { font-size: 9px; }
+.notification-copy h3 { font-size: 10px; }
+.notification-copy p { font-size: 9px; }
+.notification-meta { font-size: 8px; }
+.notification-tag, .notification-actions button, .notification-actions a { font-size: 8px; }
+.form-panel-heading p { font-size: 9px; }
+.field-group, .status-choice legend { font-size: 9px; }
+.field-control input, .field-control select, .field-control textarea { font-size: 9px; }
+.field-error, .form-feedback, .form-hint { font-size: 8px; }
+.choice-card { font-size: 9px; }
+.help-card h3 { font-size: 12px; }
+.help-card>p { font-size: 9px; }
+.help-tip p, .help-link { font-size: 8px; }
+.request-course { font-size: 10px; }
+.request-date, .request-reason, .request-status, .request-details, .request-detail-copy { font-size: 8px; }
+
+@media (max-width: 660px) {
+    .page-lede { font-size: 12px; }
+    .page-heading>.button { font-size: 10px; }
+    .summary-top { font-size: 11px; }
+    .summary-foot { font-size: 10px; }
+    .panel-heading p { font-size: 11px; }
+    .records-table th { font-size: 9px; }
+    .records-table td { font-size: 10px; }
+    .date-cell small, .course-cell small { font-size: 9px; }
+    .notification-overview strong { font-size: 11px; }
+    .notification-overview p, .filter-tab { font-size: 10px; }
+    .notification-copy h3 { font-size: 11px; }
+    .notification-copy p { font-size: 10px; }
+    .notification-meta { font-size: 9px; }
+    .notification-actions button, .notification-actions a { font-size: 9px; }
+    .field-group, .status-choice legend { font-size: 10px; }
+    .field-control input, .field-control select, .field-control textarea { font-size: 11px; }
+    .form-panel-heading p { font-size: 10px; }
+    .field-error, .form-feedback, .form-hint, .help-tip p { font-size: 9px; }
+    .request-course { font-size: 11px; }
+    .request-date, .request-reason { font-size: 10px; }
+    .request-status, .request-details { font-size: 9px; }
+    .nav-link { font-size: 10px; }
+    .demo-note { font-size: 10px; }
+}
+
+@media (max-width: 390px) {
+    .nav-link { font-size: 10px; }
+    .page-heading>.button { font-size: 10px; }
+}
