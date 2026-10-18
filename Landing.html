@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+    <title>Landing</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="Landing.css">
+</head>
+
+<body>
+
+    <div class="aura" aria-hidden="true"></div>
+
+    <div class="page">
+        <header class="nav">
+            <a class="brand" href="#" aria-label="CampusLens home">
+                <svg viewBox="0 0 160 160" fill="none" aria-hidden="true">
+                    <circle cx="72" cy="72" r="48" stroke="#4B3B8F" stroke-width="5" />
+                    <path d="M106 106L132 132" stroke="#2A2E63" stroke-width="10" stroke-linecap="round" />
+                    <path d="M72 43C54 43 45 57 45 75S57 108 72 108 99 94 99 75 90 43 72 43Z" stroke="#2A2E63"
+                        stroke-width="4" />
+                    <circle cx="62" cy="70" r="3.5" fill="#2A2E63" />
+                    <circle cx="82" cy="70" r="3.5" fill="#2A2E63" />
+                    <path d="M64 85Q72 92 80 85" stroke="#2A2E63" stroke-width="3" stroke-linecap="round" />
+                </svg>
+                CampusLens
+            </a>
+            <nav class="nav-actions" aria-label="Account">
+                <a class="login" href="login.html">Login</a>
+                <a class="btn" href="signup.html">Get Started</a>
+            </nav>
+        </header>
+
+        <main class="hero">
+            <div class="copy">
+                <h1>Attendance taken in <span class="grad">seconds</span>, not roll calls.</h1>
+                <p>CampusLens checks in each student with a quick face scan as they walk into class. No sign-in sheets,
+                    no waiting, no proxies.</p>
+            </div>
+
+            <div class="visual">
+                <svg class="scanner-svg" viewBox="0 0 160 160" fill="none" role="img" aria-label="A face being scanned">
+                    <path
+                        d="M43 53V43Q43 36 50 36H60M100 36H110Q117 36 117 43V53M43 99V109Q43 116 50 116H60M100 116H110Q117 116 117 109V99"
+                        stroke="#4B3B8F" stroke-width="4" stroke-linecap="round" />
+                    <path d="M80 45C63 45 56 59 56 75S66 103 80 103 104 91 104 75 97 45 80 45Z" stroke="#2A2E63"
+                        stroke-width="3.5" />
+                    <circle cx="71" cy="69" r="3" fill="#2A2E63" />
+                    <circle cx="89" cy="69" r="3" fill="#2A2E63" />
+                    <path d="M73 85Q80 91 87 85" stroke="#2A2E63" stroke-width="2.5" stroke-linecap="round" />
+                    <circle cx="80" cy="77" r="43" stroke="#4B3B8F" stroke-opacity="0.55" stroke-width="1.5"
+                        stroke-dasharray="3 6" />
+                    <g class="scanner">
+                        <path d="M44 77H116" stroke="#4B3B8F" stroke-width="2.5" stroke-linecap="round" />
+                        <circle cx="116" cy="77" r="3" fill="#4B3B8F" />
+                    </g>
+                </svg>
+
+                <div class="attend">
+                    <div class="session">
+                        <div class="session-top">
+                            <div class="course">
+                                <svg viewBox="0 0 24 24" aria-hidden="true">
+                                    <path d="M2 9l10-5 10 5-10 5-10-5z" />
+                                    <path d="M6 11.5V16c0 1.5 3 3 6 3s6-1.5 6-3v-4.5" />
+                                </svg>
+                                SWE320 &bull; Hall NB2
+                            </div>
+                            <div class="clock mono" id="clock">09:02:14 AM</div>
+                        </div>
+                        <div class="sync"><span class="dot"></span>Sync Status: <strong>Synced</strong></div>
+                    </div>
+
+                    <div class="float">
+                        <div class="float-top"><span>Class Attendance</span><span class="pct">95.7%</span></div>
+                        <div class="track">
+                            <div class="fill"></div>
+                        </div>
+                        <div class="float-bottom">
+                            <span>88 / 92 present</span>
+                            <span class="live"><svg viewBox="0 0 24 24" aria-hidden="true">
+                                    <circle cx="12" cy="12" r="9" />
+                                    <path d="M8 12.5l3 3 5-6" />
+                                </svg>In Session</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+
+
+        <section class="features-section">
+            <div class="badge-pill">WHY UNIVERSITIES CHOOSE CAMPUSLENS</div>
+            <h2 class="section-title">High speed precision for higher education</h2>
+            <p class="section-subtitle">
+                Designed specifically for massive lecture halls and academic schedules.
+            </p>
+
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon-wrapper">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                            stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M4 8V6a2 2 0 0 1 2-2h2" />
+                            <path d="M4 16v2a2 2 0 0 0 2 2h2" />
+                            <path d="M16 4h2a2 2 0 0 1 2 2v2" />
+                            <path d="M16 20h2a2 2 0 0 0 2-2v-2" />
+                            <circle cx="12" cy="12" r="3" />
+                        </svg>
+                    </div>
+                    <h3 class="card-heading">Quick Detection</h3>
+                    <p class="card-text">
+                        High speed recognition recognizes students as they walk naturally through classroom
+                        doorways.
+                    </p>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon-wrapper">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                            stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
+                            <path d="m9 12 2 2 4-4" />
+                        </svg>
+                    </div>
+                    <h3 class="card-heading">Anti-Spoofing &amp; Liveness</h3>
+                    <p class="card-text">
+                        3D liveness detection blocks photo, screen, or proxy attempts with mathematical landmark
+                        certainty and zero false positives.
+                    </p>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon-wrapper">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                            stroke-linecap="round" stroke-linejoin="round">
+                            <path d="m16 3 4 4-4 4" />
+                            <path d="M20 7H4" />
+                            <path d="m8 21-4-4 4-4" />
+                            <path d="M4 17h16" />
+                        </svg>
+                    </div>
+                    <h3 class="card-heading">Direct SIS &amp; LMS Integration</h3>
+                    <p class="card-text">
+                        Sync attendance directly with university registrar systems and learning management platforms.
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <section class="how-it-works-section">
+            <div class="workflow-container">
+                <div class="badge-pill">WORKFLOW</div>
+                <h2 class="section-title">How it Works in 3 Steps</h2>
+                <p class="section-subtitle">Zero friction for professors, seamless for students.</p>
+
+                <div class="steps-grid">
+                    <div class="step-card">
+                        <div class="step-number step-dark">01</div>
+                        <h3 class="card-heading">10 Second Student Enrollment</h3>
+                        <p class="card-text">
+                            Students onboard once via the official student portal.
+                    </div>
+
+                    <div class="step-card">
+                        <div class="step-number step-dark">02</div>
+                        <h3 class="card-heading">Walk Through Detection at Doorways</h3>
+                        <p class="card-text">
+                            Mounted smart tablets or entryway cameras log incoming students instantly without queues,
+                            bottle necks, or ID badges.
+                        </p>
+                    </div>
+
+                    <div class="step-card">
+                        <div class="step-number step-dark">03</div>
+                        <h3 class="card-heading">Instant Roster Sync &amp; Notifications</h3>
+                        <p class="card-text">
+                            Course attendance is immediately synced with university registrar systems, and students
+                            receive instantaneous confirmation pings.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <script src="Landing.js"></script>
+</body>
+
+</html>
