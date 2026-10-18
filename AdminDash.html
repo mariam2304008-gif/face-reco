@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#FBFCFF">
+    <link rel="icon" href="data:,">
+    <title>Admin Dashboard | CampusLens</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="CampusPages.css">
+    <link rel="stylesheet" href="AdminPages.css">
+</head>
+<body class="campus-page admin-page" data-page="admin-dashboard">
+    <div class="campus-shell">
+        <aside class="sidebar">
+            <a class="brand" href="AdminDash.html" aria-label="CampusLens admin home">
+                <span class="brand-mark"><svg viewBox="0 0 160 160" fill="none" aria-hidden="true"><circle cx="72" cy="72" r="48" stroke="#CDBCF6" stroke-width="6"/><path d="m106 106 26 26" stroke="#A8B7F0" stroke-width="11" stroke-linecap="round"/><path d="M72 43C54 43 45 57 45 75s12 33 27 33 27-14 27-33-9-32-27-32Z" stroke="white" stroke-width="4"/><circle cx="62" cy="70" r="3.5" fill="white"/><circle cx="82" cy="70" r="3.5" fill="white"/><path d="M64 85q8 7 16 0" stroke="white" stroke-width="3" stroke-linecap="round"/></svg></span>
+                <span>Campus<span class="brand-light">Lens</span><small>ADMIN PORTAL</small></span>
+            </a>
+            <div class="side-caption">MANAGEMENT</div>
+            <nav class="side-nav" aria-label="Main navigation">
+                <a href="AdminDash.html" class="nav-link active" aria-current="page"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="3" width="7" height="9" rx="1.5"/><rect x="14" y="3" width="7" height="5" rx="1.5"/><rect x="14" y="12" width="7" height="9" rx="1.5"/><rect x="3" y="16" width="7" height="5" rx="1.5"/></svg><span>Dashboard overview</span></a>
+                <a href="MarkAtt.html" class="nav-link"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="2"/><path d="M16.2 7.8a6 6 0 0 1 0 8.4M7.8 16.2a6 6 0 0 1 0-8.4M19 5a10 10 0 0 1 0 14M5 19A10 10 0 0 1 5 5"/></svg><span>Live attendance</span></a>
+                <a href="AdminCorr.html" class="nav-link"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m16 4 4 4M4 20l4-.8L19 8a2.1 2.1 0 0 0-3-3L5 16l-1 4Z"/><path d="M12 20h8"/></svg><span>Correction requests</span><span class="nav-count" data-pending-count>0</span></a>
+                <a href="UserMang.html" class="nav-link"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.9M16 3.1a4 4 0 0 1 0 7.8"/></svg><span>Students &amp; users</span></a>
+                <a href="Analytics.html" class="nav-link"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 3v18h18"/><path d="M8 16v-5M13 16V7M18 16v-8"/></svg><span>Analytics</span></a>
+                <a href="MangAlerts.html" class="nav-link"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m3 11 18-5v12L3 13v-2Z"/><path d="M11.6 16.8a3 3 0 1 1-5.8-1.6"/></svg><span>Alerts &amp; announcements</span><span class="nav-count" data-unread-count>0</span></a>
+            </nav>
+            <div class="sidebar-bottom">
+                <div class="term-card"><span class="term-icon">✦</span><div><strong>Fall semester</strong><span>2026 — 2027</span></div></div>
+                <div class="student-mini"><span class="avatar">DA</span><span><strong>Dr. Admin</strong><small>System administrator</small></span><span class="online-dot" aria-label="Online"></span></div>
+            </div>
+        </aside>
+
+        <main class="main-area">
+            <header class="topbar">
+                <div class="crumb"><span>Admin</span><span class="crumb-slash">/</span><strong>Dashboard overview</strong></div>
+                <div class="top-actions">
+                    <span class="today-label" id="todayLabel">SUNDAY, OCTOBER 18</span>
+                    <a class="top-alert" href="MangAlerts.html" aria-label="Open alerts and announcements"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M18 8a6 6 0 0 0-12 0c0 7-3 7-3 9h18c0-2-3-2-3-9M10 21h4"/></svg><i></i></a>
+                    <span class="avatar top-avatar" title="Dr. Admin">DA</span>
+                </div>
+            </header>
+
+            <div class="page-content">
+                <section class="page-heading">
+                    <div>
+                        <div class="eyebrow"><span class="eyebrow-dot"></span>CAMPUS OPERATIONS</div>
+                        <h1>Dashboard overview</h1>
+                        <p class="page-lede">Live attendance, correction requests, and system health at a glance.</p>
+                    </div>
+                    <span class="heading-status"><span class="tiny-dot green"></span><span id="liveSyncLabel">Live</span></span>
+                </section>
+
+                <section class="summary-grid" aria-label="Today at a glance">
+                    <article class="summary-card">
+                        <div class="summary-top"><span>Active classes today</span><span class="summary-icon icon-blue">▤</span></div>
+                        <div class="summary-value" id="statClasses">0</div>
+                        <div class="summary-foot"><span class="tiny-dot blue"></span><span id="statClassesFoot">—</span></div>
+                    </article>
+                    <article class="summary-card rate-card">
+                        <div class="summary-top"><span>Overall attendance</span><span class="summary-icon icon-green">↗</span></div>
+                        <div class="summary-value" id="statRate">—</div>
+                        <div class="rate-track"><span id="statRateTrack" style="width:0%"></span></div>
+                        <div class="summary-foot" id="statRateFoot">—</div>
+                    </article>
+                    <article class="summary-card" id="statPendingCard">
+                        <div class="summary-top"><span>Pending corrections</span><span class="summary-icon icon-amber">◷</span></div>
+                        <div class="summary-value" id="statPending">00</div>
+                        <div class="summary-foot" id="statPendingFoot">—</div>
+                    </article>
+                    <article class="summary-card">
+                        <div class="summary-top"><span>Face recognition</span><span class="summary-icon icon-rose">◉</span></div>
+                        <div class="summary-value health-value" id="statHealth">—</div>
+                        <div class="summary-foot" id="statHealthFoot">—</div>
+                    </article>
+                </section>
+
+                <div class="section-label">QUICK ACTIONS</div>
+                <section class="quick-grid" aria-label="Quick actions">
+                    <button class="quick-card" id="actionBroadcast" type="button">
+                        <span class="quick-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m3 11 18-5v12L3 13v-2Z"/><path d="M11.6 16.8a3 3 0 1 1-5.8-1.6"/></svg></span>
+                        <span class="quick-copy"><strong>Broadcast announcement</strong><span>Send a message to every student’s alerts.</span></span>
+                    </button>
+                    <a class="quick-card urgent" href="AdminCorr.html?filter=urgent">
+                        <span class="quick-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg></span>
+                        <span class="quick-copy"><strong>Review urgent corrections</strong><span>Requests that breached or are close to the SLA.</span></span>
+                        <span class="quick-badge" id="urgentBadge" hidden>0</span>
+                    </a>
+                    <button class="quick-card export" id="actionExport" type="button">
+                        <span class="quick-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3v12m0 0 4-4m-4 4-4-4"/><path d="M4 17v2a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-2"/></svg></span>
+                        <span class="quick-copy"><strong>Export daily attendance</strong><span>Download today’s sessions as a CSV file.</span></span>
+                    </button>
+                </section>
+
+                <section class="panel records-panel" aria-labelledby="activeHeading">
+                    <div class="panel-heading">
+                        <div><h2 id="activeHeading">Active classes right now</h2><p>Real-time attendance for sessions in progress</p></div>
+                        <span class="records-pill"><span class="tiny-dot blue"></span><span id="activeCountPill">0 in session</span></span>
+                    </div>
+                    <div class="table-wrap" id="activeTableWrap">
+                        <table class="records-table">
+                            <thead><tr><th>CLASS</th><th>ROOM</th><th>TIME</th><th>ATTENDANCE</th><th aria-label="Actions"></th></tr></thead>
+                            <tbody id="activeRows"></tbody>
+                        </table>
+                    </div>
+                    <div class="empty-state" id="activeEmpty" hidden><span class="empty-icon">◷</span><h3>No classes in session</h3><p id="activeEmptyText">Check back when the next class starts.</p></div>
+                    <div class="table-footer"><span>Counts refresh automatically</span><span class="footer-note"><span class="tiny-dot green"></span>Synced with camera feeds</span></div>
+                </section>
+
+                <div class="dash-split">
+                    <section class="panel" aria-labelledby="slaHeading">
+                        <div class="panel-heading">
+                            <div><h2 id="slaHeading">SLA watchlist</h2><p>Oldest pending requests first</p></div>
+                            <span class="records-pill"><span class="tiny-dot amber"></span><span id="slaCountPill">0 pending</span></span>
+                        </div>
+                        <ul class="plain-list" id="slaList"></ul>
+                        <div class="empty-state" id="slaEmpty" hidden><span class="empty-icon">✓</span><h3>Nothing waiting</h3><p>New student correction requests will appear here.</p></div>
+                    </section>
+                    <section class="panel" aria-labelledby="activityHeading">
+                        <div class="panel-heading">
+                            <div><h2 id="activityHeading">System activity</h2><p>Latest events from the platform</p></div>
+                            <span class="records-pill"><span class="tiny-dot green"></span>Live log</span>
+                        </div>
+                        <ul class="plain-list" id="activityList"></ul>
+                    </section>
+                </div>
+
+                <p class="demo-note"><span>ⓘ</span> Demo data stored in this browser. Student correction requests and announcements sync with the student portal through localStorage; a real deployment needs a university backend.</p>
+            </div>
+        </main>
+    </div>
+
+    <dialog class="admin-dialog" id="broadcastDialog" aria-labelledby="broadcastHeading">
+        <div class="dialog-head">
+            <div>
+                <span class="section-kicker">BROADCAST</span>
+                <h2 id="broadcastHeading">Send an announcement</h2>
+                <p>Every student will see this in their Alerts.</p>
+            </div>
+            <button class="dialog-close" type="button" data-close-dialog aria-label="Close"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m6 6 12 12M18 6 6 18"/></svg></button>
+        </div>
+        <form id="broadcastForm" novalidate>
+            <label class="field-group" for="announceTitle"><span>Title <b>*</b></span><span class="field-control"><input id="announceTitle" type="text" maxlength="80" placeholder="e.g. Midterm schedule update" autocomplete="off"><span class="field-error"></span></span></label>
+            <label class="field-group" for="announcePriority"><span>Priority</span><span class="field-control"><select id="announcePriority"><option value="normal">Normal</option><option value="urgent">Urgent</option></select><svg class="select-chevron" viewBox="0 0 24 24" aria-hidden="true"><path d="m7 10 5 5 5-5"/></svg></span></label>
+            <label class="field-group" for="announceMessage"><span>Message <b>*</b></span><span class="field-control textarea-control"><textarea id="announceMessage" maxlength="300" rows="4" placeholder="Write a clear, short message for students..."></textarea><span class="char-count"><span id="announceCount">0</span>/300</span><span class="field-error"></span></span></label>
+            <div class="dialog-actions">
+                <button class="button button-soft" type="button" data-close-dialog>Cancel</button>
+                <button class="button button-primary" type="submit">Send announcement<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14m-7-7 7 7-7 7"/></svg></button>
+            </div>
+        </form>
+    </dialog>
+
+    <div class="admin-toast" id="adminToast" role="status" aria-live="polite"></div>
+
+    <script src="AdminShared.js" defer></script>
+    <script src="AdminDash.js" defer></script>
+</body>
+</html>

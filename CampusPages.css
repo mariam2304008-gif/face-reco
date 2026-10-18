@@ -179,6 +179,7 @@
 .notification-icon.kind-approved { color: #2A8468; background: #EAF6F1; }
 .notification-icon.kind-reminder { color: #5D6EB0; background: #EDF0FF; }
 .notification-icon.kind-info { color: #7065A8; background: #F0EDFA; }
+.notification-icon.kind-emergency { color: #B24E5D; background: #FBE3E7; }
 .notification-copy { min-width: 0; flex: 1; }
 .notification-titleline { display: flex; align-items: center; gap: 7px; }
 .notification-copy h3 { margin: 0; color: #30344F; font-size: 16px; font-weight: 800; }

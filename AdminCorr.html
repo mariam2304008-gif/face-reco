@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#FBFCFF">
+    <link rel="icon" href="data:,">
+    <title>Correction Requests | CampusLens Admin</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="CampusPages.css">
+    <link rel="stylesheet" href="AdminPages.css">
+    <link rel="stylesheet" href="AdminCorr.css">
+</head>
+<body class="campus-page admin-page" data-page="admin-corrections">
+    <div class="campus-shell">
+        <aside class="sidebar">
+            <a class="brand" href="AdminDash.html" aria-label="CampusLens admin home">
+                <span class="brand-mark"><svg viewBox="0 0 160 160" fill="none" aria-hidden="true"><circle cx="72" cy="72" r="48" stroke="#CDBCF6" stroke-width="6"/><path d="m106 106 26 26" stroke="#A8B7F0" stroke-width="11" stroke-linecap="round"/><path d="M72 43C54 43 45 57 45 75s12 33 27 33 27-14 27-33-9-32-27-32Z" stroke="white" stroke-width="4"/><circle cx="62" cy="70" r="3.5" fill="white"/><circle cx="82" cy="70" r="3.5" fill="white"/><path d="M64 85q8 7 16 0" stroke="white" stroke-width="3" stroke-linecap="round"/></svg></span>
+                <span>Campus<span class="brand-light">Lens</span><small>ADMIN PORTAL</small></span>
+            </a>
+            <div class="side-caption">MANAGEMENT</div>
+            <nav class="side-nav" aria-label="Main navigation">
+                <a href="AdminDash.html" class="nav-link"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="3" width="7" height="9" rx="1.5"/><rect x="14" y="3" width="7" height="5" rx="1.5"/><rect x="14" y="12" width="7" height="9" rx="1.5"/><rect x="3" y="16" width="7" height="5" rx="1.5"/></svg><span>Dashboard overview</span></a>
+                <a href="MarkAtt.html" class="nav-link"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="2"/><path d="M16.2 7.8a6 6 0 0 1 0 8.4M7.8 16.2a6 6 0 0 1 0-8.4M19 5a10 10 0 0 1 0 14M5 19A10 10 0 0 1 5 5"/></svg><span>Live attendance</span></a>
+                <a href="AdminCorr.html" class="nav-link active" aria-current="page"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m16 4 4 4M4 20l4-.8L19 8a2.1 2.1 0 0 0-3-3L5 16l-1 4Z"/><path d="M12 20h8"/></svg><span>Correction requests</span><span class="nav-count" data-pending-count>0</span></a>
+                <a href="UserMang.html" class="nav-link"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.9M16 3.1a4 4 0 0 1 0 7.8"/></svg><span>Students &amp; users</span></a>
+                <a href="Analytics.html" class="nav-link"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 3v18h18"/><path d="M8 16v-5M13 16V7M18 16v-8"/></svg><span>Analytics</span></a>
+                <a href="MangAlerts.html" class="nav-link"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m3 11 18-5v12L3 13v-2Z"/><path d="M11.6 16.8a3 3 0 1 1-5.8-1.6"/></svg><span>Alerts &amp; announcements</span><span class="nav-count" data-unread-count>0</span></a>
+            </nav>
+            <div class="sidebar-bottom">
+                <div class="term-card"><span class="term-icon">✦</span><div><strong>Fall semester</strong><span>2026 — 2027</span></div></div>
+                <div class="student-mini"><span class="avatar">DA</span><span><strong>Dr. Admin</strong><small>System administrator</small></span><span class="online-dot" aria-label="Online"></span></div>
+            </div>
+        </aside>
+
+        <main class="main-area">
+            <header class="topbar">
+                <div class="crumb"><span>Admin</span><span class="crumb-slash">/</span><strong>Correction requests</strong></div>
+                <div class="top-actions">
+                    <span class="today-label" id="todayLabel">SUNDAY, OCTOBER 18</span>
+                    <a class="top-alert" href="MangAlerts.html" aria-label="Open alerts and announcements"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M18 8a6 6 0 0 0-12 0c0 7-3 7-3 9h18c0-2-3-2-3-9M10 21h4"/></svg><i></i></a>
+                    <span class="avatar top-avatar" title="Dr. Admin">DA</span>
+                </div>
+            </header>
+
+            <div class="page-content">
+                <section class="page-heading">
+                    <div>
+                        <div class="eyebrow"><span class="eyebrow-dot"></span>SERVICE LEVEL TRACKING</div>
+                        <h1>Correction requests</h1>
+                        <p class="page-lede">Review student attendance changes before they breach the 48-hour SLA.</p>
+                    </div>
+                    <span class="heading-status"><span class="tiny-dot green"></span><span id="liveSyncLabel">Live</span></span>
+                </section>
+
+                <section class="summary-grid" aria-label="SLA summary">
+                    <article class="summary-card">
+                        <div class="summary-top"><span>Pending review</span><span class="summary-icon icon-blue">▤</span></div>
+                        <div class="summary-value" id="sumPending">00</div>
+                        <div class="summary-foot"><span class="tiny-dot blue"></span>Waiting for a decision</div>
+                    </article>
+                    <article class="summary-card">
+                        <div class="summary-top"><span>On track</span><span class="summary-icon icon-green">✓</span></div>
+                        <div class="summary-value" id="sumOk">00</div>
+                        <div class="summary-foot"><span class="tiny-dot green"></span>Under 24 hours old</div>
+                    </article>
+                    <article class="summary-card">
+                        <div class="summary-top"><span>Due soon</span><span class="summary-icon icon-amber">!</span></div>
+                        <div class="summary-value" id="sumSoon">00</div>
+                        <div class="summary-foot"><span class="tiny-dot amber"></span>24 to 48 hours old</div>
+                    </article>
+                    <article class="summary-card" id="sumBreachedCard">
+                        <div class="summary-top"><span>SLA breached</span><span class="summary-icon icon-rose">×</span></div>
+                        <div class="summary-value" id="sumBreached">00</div>
+                        <div class="summary-foot"><span class="tiny-dot rose"></span>Older than 48 hours</div>
+                    </article>
+                </section>
+
+                <section class="panel records-panel" aria-labelledby="requestsHeading">
+                    <div class="panel-heading">
+                        <div><h2 id="requestsHeading">All requests</h2><p>Most urgent pending requests appear first</p></div>
+                    </div>
+                    <div class="corr-toolbar">
+                        <div class="filter-tabs" role="group" aria-label="Filter requests">
+                            <button type="button" class="filter-tab active" data-corr-filter="all" aria-pressed="true">All <span data-count="all">0</span></button>
+                            <button type="button" class="filter-tab" data-corr-filter="urgent" aria-pressed="false">Urgent / Breached <span data-count="urgent">0</span></button>
+                            <button type="button" class="filter-tab" data-corr-filter="pending" aria-pressed="false">Pending <span data-count="pending">0</span></button>
+                            <button type="button" class="filter-tab" data-corr-filter="resolved" aria-pressed="false">Resolved <span data-count="resolved">0</span></button>
+                        </div>
+                        <label class="search-box"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m16 16 4 4"/></svg><input id="requestSearch" type="search" placeholder="Search student, ID or course..." aria-label="Search requests"></label>
+                    </div>
+                    <div class="sla-legend" aria-label="SLA legend">
+                        <span><span class="sla-pill ok">On Track</span>under 24 hours</span>
+                        <span><span class="sla-pill warning">Due Soon</span>24 to 48 hours</span>
+                        <span><span class="sla-pill breached">SLA Breached</span>over 48 hours</span>
+                        <span>"Urgent / Breached" shows pending requests that are Due Soon or Breached.</span>
+                    </div>
+                    <div class="table-wrap" id="requestsTableWrap">
+                        <table class="records-table">
+                            <thead><tr><th>STUDENT</th><th>COURSE</th><th>REQUESTED AS</th><th>SUBMITTED</th><th>STATUS</th><th>SLA</th><th aria-label="Actions"></th></tr></thead>
+                            <tbody id="requestRows"></tbody>
+                        </table>
+                    </div>
+                    <div class="empty-state" id="requestsEmpty" hidden><span class="empty-icon">⌕</span><h3>No requests found</h3><p>Try another filter or clear your search.</p><button class="button button-soft" type="button" id="clearRequestFilters">Clear filters</button></div>
+                    <div class="table-footer"><span id="requestsFooter">Showing 0 of 0 requests</span><span class="footer-note"><span class="tiny-dot green"></span>Synced with student portal</span></div>
+                </section>
+
+                <p class="demo-note"><span>ⓘ</span> Decisions are saved in this browser and appear on the student portal. A real approval workflow needs a university backend.</p>
+            </div>
+        </main>
+    </div>
+
+    <dialog class="admin-dialog review-dialog" id="reviewDialog" aria-labelledby="reviewHeading">
+        <div class="dialog-head">
+            <div>
+                <span class="section-kicker" id="reviewKicker">REVIEW REQUEST</span>
+                <h2 id="reviewHeading">Student</h2>
+                <p id="reviewSub"></p>
+            </div>
+            <button class="dialog-close" type="button" data-close-dialog aria-label="Close"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m6 6 12 12M18 6 6 18"/></svg></button>
+        </div>
+        <div class="review-body">
+            <div class="review-sla" id="reviewSla"></div>
+            <dl class="detail-grid" id="reviewDetails"></dl>
+            <div class="reason-box"><span class="section-kicker">STUDENT'S REASON</span><p id="reviewReason"></p></div>
+            <div class="outcome-box" id="reviewOutcome" hidden></div>
+            <form id="reviewForm" novalidate onsubmit="return false">
+                <label class="field-group" for="reviewNote" id="noteField"><span>Note to student <span class="note-hint">(required when rejecting)</span></span><span class="field-control textarea-control"><textarea id="reviewNote" maxlength="200" rows="3" placeholder="Add context the student will see with your decision..."></textarea><span class="char-count"><span id="noteCount">0</span>/200</span><span class="field-error"></span></span></label>
+                <div class="dialog-actions">
+                    <button class="button button-soft" type="button" data-close-dialog>Close</button>
+                    <button class="button button-danger" type="button" id="rejectBtn">Reject</button>
+                    <button class="button button-primary" type="button" id="approveBtn">Approve</button>
+                </div>
+            </form>
+        </div>
+    </dialog>
+
+    <div class="admin-toast" id="adminToast" role="status" aria-live="polite"></div>
+
+    <script src="AdminShared.js" defer></script>
+    <script src="AdminCorr.js" defer></script>
+</body>
+</html>

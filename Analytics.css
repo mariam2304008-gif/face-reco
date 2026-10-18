@@ -1,0 +1,52 @@
+/* CampusLens admin analytics. Load AFTER style.css, CampusPages.css and AdminPages.css. */
+
+.panel-gap { margin-top: 17px; }
+.summary-value.text-value { min-height: 32px; font-size: 20px; letter-spacing: -.4px; line-height: 1.3; }
+
+/* Toolbar + chart */
+.an-toolbar { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 10px; padding: 0 21px 16px; }
+.chart-wrap { overflow-x: auto; padding: 8px 21px; border-top: 1px solid #EFF0F6; }
+.chart-svg { display: block; width: 100%; min-width: 560px; height: auto; }
+.chart-svg .grid { stroke: #EEF0F8; stroke-width: 1; }
+.chart-svg .axis { fill: #9297AB; font: 500 11px 'JetBrains Mono', monospace; }
+.chart-svg .val { fill: #555B77; font: 600 11px 'JetBrains Mono', monospace; text-anchor: middle; }
+.chart-svg .target { stroke: #D7A445; stroke-width: 1.2; stroke-dasharray: 5 4; }
+.chart-svg .target-label { fill: #A97422; font: 700 11px 'Plus Jakarta Sans', sans-serif; }
+.chart-svg .bar { fill: #8D84CF; }
+.chart-svg .bar.low { fill: #D7A445; }
+.chart-svg .line { fill: none; stroke: #7484CC; stroke-width: 2.4; stroke-linejoin: round; stroke-linecap: round; }
+.chart-svg .area { fill: #7484CC; opacity: .12; }
+.chart-svg .dot { fill: #fff; stroke: #7484CC; stroke-width: 2; }
+.chart-svg .dot.low { stroke: #D7A445; }
+.chart-svg .pbar.normal { fill: #A79BD8; }
+.chart-svg .pbar.busy { fill: #E0B25A; }
+.chart-svg .pbar.congested { fill: #D27A87; }
+.chart-svg .bar:hover, .chart-svg .pbar:hover, .chart-svg .dot:hover { opacity: .75; }
+
+.chart-legend { display: flex; flex-wrap: wrap; align-items: center; gap: 8px 18px; padding: 12px 21px; border-top: 1px solid #EFF0F6; color: #8B90A9; background: #FCFCFE; font-size: 12px; line-height: 1.5; }
+.chart-legend span { display: inline-flex; align-items: center; gap: 7px; }
+.swatch { display: inline-block; width: 10px; height: 10px; border-radius: 3px; }
+.sw-ok, .sw-normal { background: #8D84CF; }
+.sw-low, .sw-busy { background: #D7A445; }
+.sw-congested { background: #D27A87; }
+
+/* Department table */
+.delta { font-family: 'JetBrains Mono', monospace; font-size: 12px; font-weight: 700; }
+.delta.up { color: #2A8468; }
+.delta.down { color: #B85D6B; }
+.records-table .total-row td { color: #333751; background: #F8F7FD !important; font-weight: 700; }
+
+/* Hotspots */
+.list-title { padding: 14px 21px 10px; border-top: 1px solid #EFF0F6; color: #8B90A9; font-size: 11px; font-weight: 800; letter-spacing: 1.35px; }
+.hotspot-item { display: flex; align-items: center; gap: 12px; padding: 14px 21px; border-top: 1px solid #F0F1F6; }
+.hotspot-rank { display: grid; width: 30px; height: 30px; flex: 0 0 auto; place-items: center; border-radius: 9px; color: #4B3B8F; background: #F2F0F8; font: 600 13px 'JetBrains Mono', monospace; }
+.hotspot-copy { min-width: 0; flex: 1; }
+.hotspot-copy strong { display: block; color: #333751; font-size: 14px; font-weight: 700; }
+.hotspot-copy small { display: block; margin-top: 3px; color: #9297AA; font-size: 12px; line-height: 1.5; }
+
+@media (max-width: 660px) {
+    .an-toolbar { padding: 0 15px 14px; }
+    .chart-wrap { padding: 8px 15px; }
+    .chart-legend { padding: 12px 15px; }
+    .list-title, .hotspot-item { padding-right: 15px; padding-left: 15px; }
+}
