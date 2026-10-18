@@ -1,0 +1,154 @@
+<!DOCTYPE html> 
+<html>
+    <head>
+        <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="signup.css">
+    <link rel="stylesheet" href="style.css">
+    <title>CampusLens | Create account</title>
+
+   
+    </head>
+
+
+    <body>
+        <main class="page">
+
+        <!-- LEFT: form-->
+        <section class="form-side">
+            <div class="form-wrap">
+
+                <header class="brand">
+                    
+                    <div class="brand-logo">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 160 160" fill="none" aria-hidden="true">
+                            <circle cx="72" cy="72" r="48" stroke="#A5B4FC" stroke-width="5"/>
+                            <path d="M106 106L132 132" stroke="#C4B5FD" stroke-width="10" stroke-linecap="round"/>
+                            <path d="M72 43C54 43 45 57 45 75S57 108 72 108 99 94 99 75 90 43 72 43Z" stroke="#F4F6FF" stroke-width="4"/>
+                            <circle cx="62" cy="70" r="3.5" fill="#F4F6FF"/>
+                            <circle cx="82" cy="70" r="3.5" fill="#F4F6FF"/>
+                            <path d="M64 85Q72 92 80 85" stroke="#F4F6FF" stroke-width="3" stroke-linecap="round"/>
+                        </svg>
+                    </div>
+                    <div>
+                        <p class="brand-name">CampusLens</p>
+                    </div>
+                </header>
+
+                 <h1>Create your account</h1>
+                <p class="subtitle">Register your student profile to enable automated attendance.</p>
+
+                <form class="signup-form" novalidate>
+                    <div class="field-row">
+                        <div class="field">
+                            <label for="name">Full Name</label>
+                            <input type="text" id="name" placeholder="e.g. Ahmed Ali" required>
+                        </div>
+                        <div class="field">
+                            <label for="student-id">Student ID Number</label>
+                            <input type="text" id="student-id" class="mono" placeholder="e.g. 2024/01693" required>
+                        </div>
+                    </div>
+
+                    <div class="field">
+                        <label for="email">University Email</label>
+                        <input type="email" id="email" placeholder="student@university.edu" required>
+                    </div>
+
+                    <div class="field">
+                        <label for="department">Faculty</label>
+                        <select id="department" required>
+                            <option value="" disabled selected>Select your department</option>
+                            <option>Computer Science </option>
+                            <option>Oral and Dental Medicine</option>
+                            <option>Business Administration</option>
+                            <option>Engineering </option>
+                            <option>Architecture</option>
+                            <option>Mass Communication</option>
+                            <option>Law</option>
+                        </select>
+                    </div>
+
+                    <div class="field-row">
+                        <div class="field">
+                            <label for="password">Password</label>
+                            <!-- CHANGED: input wrapped in .input-wrap + eye button added -->
+                            <div class="input-wrap">
+                                <input type="password" id="password" placeholder="••••••••••••" required>
+                                <button type="button" class="toggle-pass" data-target="password" aria-label="Show password">
+                                    <!-- eye open -->
+                                    <svg class="eye-open" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                                        <path d="M3 14C3 9.02944 7.02944 5 12 5C16.9706 5 21 9.02944 21 14M17 14C17 16.7614 14.7614 19 12 19C9.23858 19 7 16.7614 7 14C7 11.2386 9.23858 9 12 9C14.7614 9 17 11.2386 17 14Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                    </svg>
+                                    <!-- eye closed -->
+                                    <svg class="eye-closed" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                                        <path d="M9.60997 9.60714C8.05503 10.4549 7 12.1043 7 14C7 16.7614 9.23858 19 12 19C13.8966 19 15.5466 17.944 16.3941 16.3878M21 14C21 9.02944 16.9706 5 12 5C11.5582 5 11.1238 5.03184 10.699 5.09334M3 14C3 11.0069 4.46104 8.35513 6.70883 6.71886M3 3L21 21" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                    </svg>
+                                </button>
+                            </div>
+                        </div>
+                        <div class="field">
+                            <label for="confirm">Confirm Password</label>
+                            <div class="input-wrap">
+                                <input type="password" id="confirm" placeholder="••••••••••••" required>
+                                <button type="button" class="toggle-pass" data-target="confirm" aria-label="Show password">
+                                    <svg class="eye-open" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                                        <path d="M3 14C3 9.02944 7.02944 5 12 5C16.9706 5 21 9.02944 21 14M17 14C17 16.7614 14.7614 19 12 19C9.23858 19 7 16.7614 7 14C7 11.2386 9.23858 9 12 9C14.7614 9 17 11.2386 17 14Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                    </svg>
+                                    <svg class="eye-closed" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                                        <path d="M9.60997 9.60714C8.05503 10.4549 7 12.1043 7 14C7 16.7614 9.23858 19 12 19C13.8966 19 15.5466 17.944 16.3941 16.3878M21 14C21 9.02944 16.9706 5 12 5C11.5582 5 11.1238 5.03184 10.699 5.09334M3 14C3 11.0069 4.46104 8.35513 6.70883 6.71886M3 3L21 21" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                    </svg>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <label class="consent" >
+                        <input type="checkbox" id="consent" required>
+                        <span>I agree to facial biometric enrollment for class attendance.</span>
+                    </label>
+
+                    <button type="submit" class="btn-primary">Create Account &amp; Register Face</button>
+                </form>
+
+                <p class="signin">Already have an account? <a href="login.html">Sign in</a></p>
+            </div>
+        </section>
+
+        <!-- RIGHT: hero -->
+        <aside class="hero-side">
+
+            
+            <div class="orb orb-1" aria-hidden="true"></div>
+            <div class="orb orb-2" aria-hidden="true"></div>
+
+            <div class="hero-content">
+                <div class="hero-icon">
+                    
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 160 160" fill="none" aria-hidden="true">
+                        <path d="M43 53V43Q43 36 50 36H60M100 36H110Q117 36 117 43V53M43 99V109Q43 116 50 116H60M100 116H110Q117 116 117 109V99" stroke="#A5B4FC" stroke-width="4" stroke-linecap="round"/>
+                        <path d="M80 45C63 45 56 59 56 75S66 103 80 103 104 91 104 75 97 45 80 45Z" stroke="#F4F6FF" stroke-width="3.5"/>
+                        <circle cx="71" cy="69" r="3" fill="#F4F6FF"/>
+                        <circle cx="89" cy="69" r="3" fill="#F4F6FF"/>
+                        <path d="M73 85Q80 91 87 85" stroke="#F4F6FF" stroke-width="2.5" stroke-linecap="round"/>
+                        <circle cx="80" cy="77" r="43" stroke="#C4B5FD" stroke-width="1.5" stroke-dasharray="3 6"/>
+                        <path d="M44 77H116" stroke="#C4B5FD" stroke-width="2.5" stroke-linecap="round"/>
+                        <circle cx="116" cy="77" r="3" fill="#C4B5FD"/>
+                    </svg>
+                </div>
+                <h2>Seamless, friction-free attendance verification.</h2>
+                <p>Eliminate manual roll calls and badge scanning. Once enrolled, simply step into class to be instantly verified in milliseconds.</p>
+            </div>
+
+        </aside>
+
+    </main>
+
+
+<script src="signup.js"></script>
+
+    </body>
+</html>
