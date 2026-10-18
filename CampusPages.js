@@ -74,6 +74,13 @@
         : 3;
     updateUnreadBadges(savedUnreadCount);
 
+    
+    window.addEventListener('storage', function (event) {
+        if (event.key !== alertsStorageKey) return;
+        var latest = readSavedList(alertsStorageKey, null);
+        if (latest) updateUnreadBadges(latest.filter(function (alert) { return alert.unread; }).length);
+    });
+
     if (pageName === 'history') {
         var historyRecords = [
             { date: '2026-10-16', course: 'Software Engineering', code: 'SWE 320', room: 'Hall NB2', checkIn: '09:02 AM', checkOut: '10:48 AM', status: 'present' },
@@ -161,6 +168,7 @@
                 late: '<svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>',
                 absent: '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="m7 7 10 10M17 7 7 17"/><circle cx="12" cy="12" r="9"/></svg>',
                 approved: '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="m5 12 4 4L19 6"/><circle cx="12" cy="12" r="9"/></svg>',
+                emergency: '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3 2.5 20h19L12 3Z"/><path d="M12 10v4M12 17h.01"/></svg>',
                 reminder: '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M18 8a6 6 0 0 0-12 0c0 7-3 7-3 9h18c0-2-3-2-3-9M10 21h4"/></svg>',
                 info: '<svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 11v5M12 8h.01"/></svg>'
             };
@@ -226,6 +234,12 @@
         });
 
         renderAlerts();
+        
+        window.addEventListener('storage', function (event) {
+            if (event.key !== alertsStorageKey) return;
+            alerts = readSavedList(alertsStorageKey, defaultAlerts);
+            renderAlerts();
+        });
     }
 
     if (pageName === 'corrections') {
@@ -235,6 +249,11 @@
             { id: 3, date: '2026-09-24', course: 'Database Systems', status: 'rejected', requestedStatus: 'Present', reason: 'I was present in the class, but I forgot to check the attendance result.', detail: 'Reviewed September 27, 2026 · The instructor could not confirm attendance for this session.' }
         ];
         var requests = readSavedList(requestsStorageKey, defaultRequests);
+        function myRequests() {
+            return requests.filter(function (request) {
+                return !request.student || request.student === 'Ahmed Mohamed';
+            });
+        }
         var form = document.getElementById('correctionForm');
         var dateInput = document.getElementById('requestDate');
         var courseInput = document.getElementById('requestCourse');
@@ -259,12 +278,12 @@
         function renderRequests() {
             var requestList = document.getElementById('requestList');
             var requestsEmpty = document.getElementById('requestsEmpty');
-            var pendingCount = requests.filter(function (request) { return request.status === 'pending'; }).length;
+            var pendingCount = myRequests().filter(function (request) { return request.status === 'pending'; }).length;
             var headingCount = document.getElementById('pendingHeadingCount');
             headingCount.textContent = pendingCount + ' pending review' + (pendingCount === 1 ? '' : 's');
-            document.getElementById('requestTotalCount').textContent = String(requests.length);
+            document.getElementById('requestTotalCount').textContent = String(myRequests().length);
 
-            requestList.innerHTML = requests.map(function (request) {
+            requestList.innerHTML = myRequests().map(function (request) {
                 var statusName = request.status.charAt(0).toUpperCase() + request.status.slice(1);
                 return '<article class="request-item"><div><div class="request-course">' + escapeHTML(request.course) + '</div>' +
                     '<div class="request-date">' + escapeHTML(formatLongDate(request.date)) + ' · Requested as ' + escapeHTML(request.requestedStatus) + '</div>' +
@@ -272,7 +291,7 @@
                     '<span class="request-status ' + escapeHTML(request.status) + '">' + escapeHTML(statusName) + '</span>' +
                     '<details class="request-details"><summary>View details</summary><div class="request-detail-copy">' + escapeHTML(request.detail) + '</div></details></article>';
             }).join('');
-            requestsEmpty.hidden = requests.length > 0;
+            requestsEmpty.hidden = myRequests().length > 0;
         }
 
         var query = new URLSearchParams(window.location.search);
@@ -340,6 +359,8 @@
 
             var newRequest = {
                 id: Date.now(),
+                student: 'Ahmed Mohamed',
+                submittedAt: Date.now(),
                 date: dateInput.value,
                 course: courseInput.value,
                 status: 'pending',

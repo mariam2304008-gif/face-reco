@@ -1,0 +1,39 @@
+/* CampusLens admin correction requests. Load AFTER style.css, CampusPages.css and AdminPages.css. */
+
+/* Toolbar: filter tabs + search */
+.corr-toolbar { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 12px; padding: 16px 21px; border-bottom: 1px solid #EFF0F6; }
+.corr-toolbar .filter-tabs { flex-wrap: wrap; }
+.corr-toolbar .search-box { width: min(280px, 100%); }
+.sla-legend { display: flex; flex-wrap: wrap; align-items: center; gap: 8px 18px; padding: 12px 21px; border-bottom: 1px solid #EFF0F6; color: #8B90A9; background: #FCFCFE; font-size: 12px; line-height: 1.5; }
+.sla-legend span { display: inline-flex; align-items: center; gap: 7px; }
+
+/* Row action button inside the table */
+.records-table .feed-btn { cursor: pointer; }
+.records-table .sla-pill + .cell-note { margin-top: 5px; }
+
+/* Review dialog */
+.review-dialog { width: min(580px, calc(100vw - 32px)); max-height: calc(100vh - 32px); overflow-y: auto; }
+.review-body { display: grid; gap: 16px; padding: 0 21px 21px; }
+.review-dialog form { padding: 0; }
+.review-sla { display: flex; flex-wrap: wrap; align-items: center; gap: 10px; padding: 11px 13px; border: 1px solid #ECE9F5; border-radius: 10px; background: #FCFBFE; }
+.review-sla-text { color: #6A6F8E; font-size: 13px; line-height: 1.5; }
+.detail-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 14px 18px; margin: 0; }
+.detail-grid dt { color: #8B90A9; font-size: 11px; font-weight: 800; letter-spacing: 1px; text-transform: uppercase; }
+.detail-grid dd { display: flex; align-items: center; gap: 7px; margin: 5px 0 0; color: #30344F; font-size: 14px; font-weight: 700; overflow-wrap: anywhere; }
+.reason-box { padding: 13px 14px; border: 1px solid #E5E1F2; border-radius: 12px; background: linear-gradient(160deg, #F8F6FF, #fff 80%); }
+.reason-box p { margin: 7px 0 0; color: #565B79; font-size: 14px; line-height: 1.65; }
+.outcome-box { padding: 13px 14px; border: 1px solid #E1ECE7; border-radius: 12px; background: #F4FAF7; }
+.outcome-box.rejected { border-color: #F0D5D9; background: #FDF5F6; }
+.outcome-box strong { color: #30344F; font-size: 14px; font-weight: 800; }
+.outcome-box p { margin: 6px 0 0; color: #6A6F8E; font-size: 13px; line-height: 1.6; }
+.note-hint { color: #A0A4B4; font-weight: 500; }
+.button-danger { color: #B24E5D !important; border-color: #F0CDD3; background: #fff; }
+.button-danger:hover { border-color: #E3A9B2; background: #FFF5F6; }
+
+@media (max-width: 660px) {
+    .corr-toolbar { padding: 13px 15px; }
+    .corr-toolbar .search-box { width: 100%; }
+    .sla-legend { padding: 12px 15px; }
+    .review-body { padding: 0 16px 18px; }
+    .detail-grid { grid-template-columns: 1fr; gap: 12px; }
+}

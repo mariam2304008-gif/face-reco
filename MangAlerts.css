@@ -1,0 +1,48 @@
+/* CampusLens admin alerts & logs. Load AFTER style.css, CampusPages.css and AdminPages.css. */
+
+.panel-gap { margin-top: 17px; }
+.button-danger { color: #B24E5D !important; border-color: #F0CDD3; background: #fff; }
+.button-danger:hover { border-color: #E3A9B2; background: #FFF5F6; }
+.button:disabled { opacity: .5; cursor: not-allowed; transform: none; }
+
+/* Composer + recent broadcasts */
+.alerts-split { display: grid; grid-template-columns: minmax(0, 1.15fr) minmax(0, 1fr); align-items: start; gap: 16px; margin-bottom: 17px; }
+.alert-form { display: grid; gap: 15px; padding: 0 21px 21px; }
+.prio-normal { background: #7B8FD8; }
+.prio-urgent { background: #D7A445; }
+.prio-emergency { background: #D27A87; }
+.sent-item { padding: 14px 21px; border-top: 1px solid #F0F1F6; }
+.sent-top { display: flex; align-items: center; justify-content: space-between; gap: 10px; }
+.sent-top strong { min-width: 0; overflow: hidden; color: #333751; font-size: 14px; font-weight: 700; text-overflow: ellipsis; white-space: nowrap; }
+.sent-item p { margin: 6px 0 0; color: #787E98; font-size: 13px; line-height: 1.6; overflow-wrap: anywhere; }
+.sent-item small { display: block; margin-top: 6px; color: #A0A4B4; font-size: 12px; }
+
+/* Admin alerts feed */
+.feed-item { align-items: center; }
+.feed-item.is-read { opacity: .6; }
+.feed-msg { display: block; margin-top: 3px; color: #787E98; font-size: 13px; line-height: 1.55; }
+.feed-actions { display: flex; flex: 0 0 auto; align-items: center; gap: 8px; }
+.read-tag { color: #A1A5B5; font-size: 13px; }
+
+/* Log viewer */
+.log-actions { display: flex; flex-wrap: wrap; gap: 8px; }
+#liveToggle.is-paused .live-pulse { background: #A0A4B4; animation: none; box-shadow: none; }
+.status-info { color: #5D6EB0; background: #EDF0FF; }
+.log-toolbar { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 12px; padding: 0 21px 16px; }
+.log-toolbar .filter-tabs { flex-wrap: wrap; }
+.log-toolbar .search-box { width: min(280px, 100%); }
+.log-scroll { max-height: 440px; overflow: auto; }
+.log-table thead th { position: sticky; top: 0; z-index: 1; }
+.log-table td.msg { min-width: 260px; color: #333751; font-weight: 600; white-space: normal; }
+
+@media (max-width: 900px) {
+    .alerts-split { grid-template-columns: 1fr; }
+}
+@media (max-width: 660px) {
+    .alert-form { padding: 0 16px 18px; }
+    .sent-item { padding-right: 15px; padding-left: 15px; }
+    .feed-item { flex-wrap: wrap; }
+    .feed-actions { width: 100%; justify-content: flex-end; }
+    .log-toolbar { padding: 0 15px 14px; }
+    .log-toolbar .search-box { width: 100%; }
+}

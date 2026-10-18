@@ -103,7 +103,7 @@ loginForm.addEventListener('submit', (e) => {
 
     if (isValid) {
         if (isAdmin) {
-            window.location.href = "admin_dashboard.html";
+            window.location.href = "AdminDash.html";
         } else {
             window.location.href = "student_portal.html";
         }

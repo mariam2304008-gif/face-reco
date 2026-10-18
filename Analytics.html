@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#FBFCFF">
+    <link rel="icon" href="data:,">
+    <title>Analytics | CampusLens Admin</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="CampusPages.css">
+    <link rel="stylesheet" href="AdminPages.css">
+    <link rel="stylesheet" href="Analytics.css">
+</head>
+<body class="campus-page admin-page" data-page="admin-analytics">
+    <div class="campus-shell">
+        <aside class="sidebar">
+            <a class="brand" href="AdminDash.html" aria-label="CampusLens admin home">
+                <span class="brand-mark"><svg viewBox="0 0 160 160" fill="none" aria-hidden="true"><circle cx="72" cy="72" r="48" stroke="#CDBCF6" stroke-width="6"/><path d="m106 106 26 26" stroke="#A8B7F0" stroke-width="11" stroke-linecap="round"/><path d="M72 43C54 43 45 57 45 75s12 33 27 33 27-14 27-33-9-32-27-32Z" stroke="white" stroke-width="4"/><circle cx="62" cy="70" r="3.5" fill="white"/><circle cx="82" cy="70" r="3.5" fill="white"/><path d="M64 85q8 7 16 0" stroke="white" stroke-width="3" stroke-linecap="round"/></svg></span>
+                <span>Campus<span class="brand-light">Lens</span><small>ADMIN PORTAL</small></span>
+            </a>
+            <div class="side-caption">MANAGEMENT</div>
+            <nav class="side-nav" aria-label="Main navigation">
+                <a href="AdminDash.html" class="nav-link"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="3" width="7" height="9" rx="1.5"/><rect x="14" y="3" width="7" height="5" rx="1.5"/><rect x="14" y="12" width="7" height="9" rx="1.5"/><rect x="3" y="16" width="7" height="5" rx="1.5"/></svg><span>Dashboard overview</span></a>
+                <a href="MarkAtt.html" class="nav-link"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="2"/><path d="M16.2 7.8a6 6 0 0 1 0 8.4M7.8 16.2a6 6 0 0 1 0-8.4M19 5a10 10 0 0 1 0 14M5 19A10 10 0 0 1 5 5"/></svg><span>Live attendance</span></a>
+                <a href="AdminCorr.html" class="nav-link"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m16 4 4 4M4 20l4-.8L19 8a2.1 2.1 0 0 0-3-3L5 16l-1 4Z"/><path d="M12 20h8"/></svg><span>Correction requests</span><span class="nav-count" data-pending-count>0</span></a>
+                <a href="UserMang.html" class="nav-link"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.9M16 3.1a4 4 0 0 1 0 7.8"/></svg><span>Students &amp; users</span></a>
+                <a href="Analytics.html" class="nav-link active" aria-current="page"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 3v18h18"/><path d="M8 16v-5M13 16V7M18 16v-8"/></svg><span>Analytics</span></a>
+                <a href="MangAlerts.html" class="nav-link"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m3 11 18-5v12L3 13v-2Z"/><path d="M11.6 16.8a3 3 0 1 1-5.8-1.6"/></svg><span>Alerts &amp; announcements</span><span class="nav-count" data-unread-count>0</span></a>
+            </nav>
+            <div class="sidebar-bottom">
+                <div class="term-card"><span class="term-icon">✦</span><div><strong>Fall semester</strong><span>2026 — 2027</span></div></div>
+                <div class="student-mini"><span class="avatar">DA</span><span><strong>Dr. Admin</strong><small>System administrator</small></span><span class="online-dot" aria-label="Online"></span></div>
+            </div>
+        </aside>
+
+        <main class="main-area">
+            <header class="topbar">
+                <div class="crumb"><span>Admin</span><span class="crumb-slash">/</span><strong>Analytics</strong></div>
+                <div class="top-actions">
+                    <span class="today-label" id="todayLabel">SUNDAY, OCTOBER 18</span>
+                    <a class="top-alert" href="MangAlerts.html" aria-label="Open alerts and announcements"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M18 8a6 6 0 0 0-12 0c0 7-3 7-3 9h18c0-2-3-2-3-9M10 21h4"/></svg><i></i></a>
+                    <span class="avatar top-avatar" title="Dr. Admin">DA</span>
+                </div>
+            </header>
+
+            <div class="page-content">
+                <section class="page-heading">
+                    <div>
+                        <div class="eyebrow"><span class="eyebrow-dot"></span>SYSTEM HEALTH &amp; INSIGHTS</div>
+                        <h1>Analytics</h1>
+                        <p class="page-lede">Attendance trends, department performance and doorway congestion across the university.</p>
+                    </div>
+                    <span class="heading-status"><span class="tiny-dot blue"></span>Demo data</span>
+                </section>
+
+                <section class="summary-grid" aria-label="Analytics summary">
+                    <article class="summary-card">
+                        <div class="summary-top"><span>Average attendance</span><span class="summary-icon icon-green">↗</span></div>
+                        <div class="summary-value" id="sumAvg">—</div>
+                        <div class="summary-foot" id="sumAvgFoot">—</div>
+                    </article>
+                    <article class="summary-card">
+                        <div class="summary-top"><span>Best day</span><span class="summary-icon icon-blue">★</span></div>
+                        <div class="summary-value text-value" id="sumBest">—</div>
+                        <div class="summary-foot" id="sumBestFoot">—</div>
+                    </article>
+                    <article class="summary-card">
+                        <div class="summary-top"><span>Needs attention</span><span class="summary-icon icon-amber">!</span></div>
+                        <div class="summary-value text-value" id="sumDept">—</div>
+                        <div class="summary-foot" id="sumDeptFoot">—</div>
+                    </article>
+                    <article class="summary-card">
+                        <div class="summary-top"><span>Busiest doorway</span><span class="summary-icon icon-rose">◷</span></div>
+                        <div class="summary-value text-value" id="sumDoor">—</div>
+                        <div class="summary-foot" id="sumDoorFoot">—</div>
+                    </article>
+                </section>
+
+                <section class="panel records-panel" aria-labelledby="trendHeading">
+                    <div class="panel-heading">
+                        <div><h2 id="trendHeading">Attendance trend</h2><p>University-wide attendance rate per day</p></div>
+                        <span class="records-pill"><span class="tiny-dot blue"></span><span id="trendPill">Last 7 days</span></span>
+                    </div>
+                    <div class="an-toolbar">
+                        <div class="filter-tabs" role="group" aria-label="Time range">
+                            <button type="button" class="filter-tab active" data-range="week" aria-pressed="true">Weekly</button>
+                            <button type="button" class="filter-tab" data-range="month" aria-pressed="false">Monthly</button>
+                        </div>
+                        <div class="filter-tabs" role="group" aria-label="Chart style">
+                            <button type="button" class="filter-tab active" data-style="bar" aria-pressed="true">Bars</button>
+                            <button type="button" class="filter-tab" data-style="line" aria-pressed="false">Line</button>
+                        </div>
+                    </div>
+                    <div class="chart-wrap" id="trendChart"></div>
+                    <div class="chart-legend">
+                        <span><i class="swatch sw-ok"></i>At or above 85%</span>
+                        <span><i class="swatch sw-low"></i>Below the 85% requirement</span>
+                        <span>Axis starts at 50%</span>
+                    </div>
+                </section>
+
+                <section class="panel records-panel panel-gap" aria-labelledby="deptHeading">
+                    <div class="panel-heading">
+                        <div><h2 id="deptHeading">Department breakdown</h2><p>Attendance by department for the selected range</p></div>
+                    </div>
+                    <div class="table-wrap">
+                        <table class="records-table">
+                            <thead><tr><th>DEPARTMENT</th><th>STUDENTS</th><th>ATTENDANCE</th><th>ON TIME</th><th>LATE</th><th>ABSENT</th><th>VS PREVIOUS</th></tr></thead>
+                            <tbody id="deptRows"></tbody>
+                        </table>
+                    </div>
+                    <div class="table-footer"><span>Sorted by attendance rate</span><span class="footer-note"><span class="tiny-dot blue"></span>Sample enrolment figures</span></div>
+                </section>
+
+                <section class="panel records-panel panel-gap" aria-labelledby="peakHeading">
+                    <div class="panel-heading">
+                        <div><h2 id="peakHeading">Peak entry times</h2><p>Students walking in per 10 minutes, around each class start</p></div>
+                    </div>
+                    <div class="empty-state" id="peakEmpty" hidden><span class="empty-icon">◷</span><h3>No classes scheduled</h3><p>Entry patterns are calculated from the class schedule.</p></div>
+                    <div id="peakBody">
+                        <div class="chart-wrap" id="peakChart"></div>
+                        <div class="chart-legend">
+                            <span><i class="swatch sw-normal"></i>Normal flow</span>
+                            <span><i class="swatch sw-busy"></i>Busy doorway (3.5+ per min)</span>
+                            <span><i class="swatch sw-congested"></i>Congested doorway (5.5+ per min)</span>
+                        </div>
+                        <div class="list-title">TOP CONGESTION HOTSPOTS</div>
+                        <ul class="plain-list" id="hotspotList"></ul>
+                    </div>
+                </section>
+
+                <p class="demo-note"><span>ⓘ</span> Figures are generated from the class schedule and sample data in this browser. A real deployment needs attendance history from a university backend.</p>
+            </div>
+        </main>
+    </div>
+
+    <script src="AdminShared.js" defer></script>
+    <script src="Analytics.js" defer></script>
+</body>
+</html>
