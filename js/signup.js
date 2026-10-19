@@ -29,7 +29,7 @@ const rules = {
         return '';
     },
     department: function (v) {
-        if (!v) return 'Please select your faculty.';5
+        if (!v) return 'Please select your faculty.';
         return '';
     },
     password: function (v) {

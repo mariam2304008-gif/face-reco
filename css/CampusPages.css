@@ -316,6 +316,71 @@
 .compact-copy strong { display: block; color: #333751; font-size: 14px; font-weight: 700; line-height: 1.45; }
 .compact-copy small { display: block; margin-top: 3px; overflow: hidden; color: #9297AA; font-size: 12px; text-overflow: ellipsis; white-space: nowrap; }
 
+/* Mark attendance page */
+.attendance-content { max-width: 1280px; }
+.attendance-layout { display: grid; grid-template-columns: minmax(0, 1fr) 300px; align-items: start; gap: 16px; }
+.scanner-panel { padding-bottom: 20px; }
+.camera-tools { display: flex; flex: 0 0 auto; align-items: center; gap: 12px; }
+.camera-tools .text-button { font-size: 13px; font-weight: 700; }
+.tiny-dot.gray { background: #B7BBCB; }
+.scanner-body { display: grid; gap: 15px; padding: 0 21px; }
+.camera-view { position: relative; overflow: hidden; aspect-ratio: 16 / 9; border-radius: 14px; background: radial-gradient(120% 95% at 50% 32%, #3A3F7D 0%, #2A2E63 46%, #1E2147 100%); box-shadow: inset 0 0 0 1px #ffffff12; }
+.camera-view video { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; transform: scaleX(-1); }
+.camera-overlay { position: absolute; inset: 0; }
+.camera-badge { position: absolute; top: 14px; left: 14px; display: inline-flex; align-items: center; gap: 7px; padding: 6px 10px; border-radius: 99px; color: #fff; background: #0D132173; font-family: 'JetBrains Mono', monospace; font-size: 11px; letter-spacing: .6px; backdrop-filter: blur(6px); }
+.face-frame { position: absolute; top: 46%; left: 50%; width: min(230px, 40%); aspect-ratio: 4 / 5; transform: translate(-50%, -50%); }
+.face-frame i { position: absolute; width: 30px; height: 30px; border: 3px solid #CDBCF6; transition: border-color .2s ease; }
+.face-frame i:nth-child(1) { top: 0; left: 0; border-right: 0; border-bottom: 0; border-top-left-radius: 14px; }
+.face-frame i:nth-child(2) { top: 0; right: 0; border-bottom: 0; border-left: 0; border-top-right-radius: 14px; }
+.face-frame i:nth-child(3) { bottom: 0; left: 0; border-top: 0; border-right: 0; border-bottom-left-radius: 14px; }
+.face-frame i:nth-child(4) { right: 0; bottom: 0; border-top: 0; border-left: 0; border-bottom-right-radius: 14px; }
+.demo-face { position: absolute; inset: 12% 10% 0; width: 80%; height: 88%; opacity: .75; }
+.scan-line { position: absolute; top: 50%; right: 6%; left: 6%; height: 2px; border-radius: 2px; background: linear-gradient(90deg, transparent, #CDBCF6, transparent); box-shadow: 0 0 14px 2px #CDBCF699; opacity: 0; }
+.camera-view[data-state="scanning"] .scan-line { opacity: 1; animation: scanSweep 1.5s ease-in-out infinite alternate; }
+@keyframes scanSweep { from { top: 5%; } to { top: 95%; } }
+.camera-view[data-state="verified"] .face-frame i { border-color: #61C9A6; }
+.camera-view[data-state="failed"] .face-frame i { border-color: #D98390; }
+.camera-caption { position: absolute; bottom: 20px; left: 50%; max-width: calc(100% - 28px); padding: 8px 14px; border-radius: 99px; color: #fff; background: #0D132180; font-size: 13px; font-weight: 700; text-align: center; transform: translateX(-50%); backdrop-filter: blur(8px); transition: background .2s ease; }
+.camera-view[data-state="verified"] .camera-caption { background: #29856BE6; }
+.camera-view[data-state="failed"] .camera-caption { background: #BC5E6AE6; }
+.scan-progress { position: absolute; right: 0; bottom: 0; left: 0; height: 4px; background: #ffffff1a; }
+.scan-progress span { display: block; width: 0; height: 100%; background: linear-gradient(90deg, #7484CC, #A493D5); transition: width .9s ease; }
+.camera-view[data-state="verified"] .scan-progress span { background: #4BAF8D; }
+.camera-view[data-state="failed"] .scan-progress span { background: #D27A87; }
+.camera-placeholder { position: absolute; inset: 0; display: grid; align-content: center; justify-items: center; padding: 24px; text-align: center; }
+.camera-placeholder-icon { display: grid; width: 52px; height: 52px; margin-bottom: 14px; place-items: center; border: 1px solid #ffffff1f; border-radius: 15px; color: #CDBCF6; background: #ffffff0f; }
+.camera-placeholder-icon svg { width: 22px; height: 22px; fill: none; stroke: currentColor; stroke-width: 1.7; stroke-linecap: round; stroke-linejoin: round; }
+.camera-view[data-state="error"] .camera-placeholder-icon { color: #F2B8C0; background: #D983901f; }
+.camera-view[data-state="done"] .camera-placeholder-icon { color: #8FDDC2; background: #61C9A61f; }
+.camera-placeholder h3 { margin: 0; color: #fff; font-size: 17px; font-weight: 800; }
+.camera-placeholder p { max-width: 360px; margin: 6px 0 16px; color: #AEB3D2; font-size: 14px; line-height: 1.6; }
+.camera-placeholder-actions { display: flex; flex-wrap: wrap; justify-content: center; gap: 8px; }
+.button-on-dark { color: #E3E7FF !important; border-color: #ffffff33; background: transparent; }
+.button-on-dark:hover { border-color: #ffffff59; background: #ffffff12; }
+.scan-controls { display: grid; grid-template-columns: minmax(0, 1fr) auto auto; align-items: end; gap: 10px; }
+.scan-controls .button { min-height: 48px; padding: 0 18px; }
+.scan-controls .button:disabled { opacity: .45; cursor: not-allowed; transform: none; box-shadow: none; }
+.scanner-body .form-hint { margin-top: -4px; }
+.scan-result { display: flex; align-items: flex-start; gap: 12px; padding: 14px 15px; border: 1px solid #DDEFE7; border-radius: 12px; background: #F5FBF8; }
+.scan-result.kind-late { border-color: #F2E3C6; background: #FFFBF3; }
+.scan-result.kind-absent { border-color: #F3D9DD; background: #FFF8F9; }
+.scan-result .notification-icon { width: 38px; height: 38px; border-radius: 10px; }
+.scan-result strong { display: block; color: #30344F; font-size: 15px; font-weight: 800; }
+.scan-result p { margin: 4px 0 0; color: #787E98; font-size: 14px; line-height: 1.6; }
+.attendance-side { display: grid; gap: 14px; }
+.class-card-head { display: flex; align-items: flex-start; gap: 12px; }
+.class-card-head .section-kicker { margin-bottom: 5px; }
+.class-card h3 { margin: 0 0 4px; }
+.class-card-head p { margin: 0; color: #7B7F99; font-size: 13px; line-height: 1.55; }
+.class-facts { display: grid; margin: 0; }
+.class-facts div { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 9px 0; border-top: 1px solid #F0EEF6; font-size: 13px; }
+.class-facts div:first-child { padding-top: 0; border-top: 0; }
+.class-facts dt { color: #858AA1; font-weight: 600; }
+.class-facts dd { display: inline-flex; align-items: center; gap: 6px; margin: 0; color: #353451; font-weight: 700; text-align: right; }
+.class-facts .fact-mono { font-family: 'JetBrains Mono', monospace; font-size: 12px; font-weight: 500; }
+.checkins-panel { margin-top: 17px; }
+@media (prefers-reduced-motion: reduce) { .camera-view[data-state="scanning"] .scan-line { top: 50%; animation: none; } }
+
 @media (min-width: 1500px) { .page-content { padding-top: 52px; } }
 @media (max-width: 1100px) {
     .sidebar { width: 220px; }
@@ -324,6 +389,10 @@
     .summary-grid { gap: 9px; }
     .summary-card { padding-right: 13px; padding-left: 13px; }
     .correction-layout { grid-template-columns: minmax(0, 1fr) 250px; gap: 12px; }
+    .attendance-layout { grid-template-columns: minmax(0, 1fr) 250px; gap: 12px; }
+    .camera-view { aspect-ratio: 4 / 3; }
+    .scan-controls { grid-template-columns: 1fr 1fr; }
+    .scan-controls .field-group { grid-column: 1 / -1; }
     .shortcut-grid { gap: 9px; }
     .shortcut-card { padding: 15px 13px; }
 }
@@ -351,6 +420,9 @@
     .help-card>p { grid-column: 2; }
     .help-icon { grid-row: span 2; }
     .help-divider, .help-tip, .help-link { grid-column: 1 / -1; }
+    .attendance-layout { grid-template-columns: 1fr; }
+    .camera-view { aspect-ratio: 16 / 10; }
+    .help-card.class-card { display: block; }
 }
 @media (max-width: 660px) {
     .topbar { padding-right: 17px; padding-left: 17px; }
@@ -436,6 +508,14 @@
     .demo-note { font-size: 12px; line-height: 1.6; }
     .face-value { font-size: 20px; }
     .compact-item { padding: 13px 15px; }
+    .scanner-panel .panel-heading { flex-wrap: wrap; }
+    .scanner-body { gap: 14px; padding: 0 16px; }
+    .camera-view { aspect-ratio: 1 / 1; }
+    .face-frame { width: 54%; }
+    .camera-caption { bottom: 16px; font-size: 12px; }
+    .camera-placeholder p { font-size: 13px; }
+    .scan-controls .button { min-height: 50px; }
+    .scan-result p { font-size: 13px; }
 }
 @media (max-width: 390px) {
     .page-content { padding-right: 13px; padding-left: 13px; }

@@ -93,6 +93,51 @@
         { id: 3, date: '2026-09-24', course: 'Database Systems', status: 'rejected', requestedStatus: 'Present', reason: 'I was present in the class, but I forgot to check the attendance result.', detail: 'Reviewed September 27, 2026 · The instructor could not confirm attendance for this session.' }
     ];
 
+    // Today's timetable, used by the dashboard and Mark attendance.
+    // Same rooms, times and instructors as the admin portal's class list (AdminShared.js).
+    var todayClasses = [
+        { code: 'SWE 320', course: 'Software Engineering', room: 'Hall NB2', instructor: 'Dr. Samir Hassan', start: '09:00', end: '10:45', checkIn: '08:57' },
+        { code: 'CS 305', course: 'Database Systems', room: 'Lab A14', instructor: 'Dr. Karim Fathy', start: '11:00', end: '12:45', checkIn: '11:06' },
+        { code: 'AI 410', course: 'Artificial Intelligence', room: 'Hall NB1', instructor: 'Dr. Nadia Younes', start: '13:00', end: '14:45', checkIn: '12:56' }
+    ];
+    var lateAfterMinutes = 5;
+    var rosterStorageKey = 'campusLensAdminStudents';   // admin roster (UserMang.js), holds the face ID status
+    var studentId = '20230417';
+
+    function minutesOf(timeText) {
+        var parts = timeText.split(':');
+        return Number(parts[0]) * 60 + Number(parts[1]);
+    }
+
+    function formatClock(timeText) {
+        var minutes = minutesOf(timeText);
+        var hours = Math.floor(minutes / 60);
+        return ((hours + 11) % 12 + 1) + ':' + String(minutes % 60).padStart(2, '0') + ' ' + (hours >= 12 ? 'PM' : 'AM');
+    }
+
+    function formatWait(minutes) {
+        var total = Math.max(1, Math.round(minutes));
+        var hours = Math.floor(total / 60);
+        if (hours === 0) return total + ' min';
+        return hours + 'h' + (total % 60 ? ' ' + (total % 60) + 'm' : '');
+    }
+
+    // upcoming / active / completed
+    function classPhase(item, nowMinutes) {
+        if (nowMinutes < minutesOf(item.start)) return 'upcoming';
+        if (nowMinutes >= minutesOf(item.end)) return 'completed';
+        return 'active';
+    }
+
+    // This student's row in the admin roster, or null if the admin portal has not saved one yet.
+    function studentRecord() {
+        var record = null;
+        readSavedList(rosterStorageKey, []).forEach(function (student) {
+            if (student && String(student.id) === studentId) record = student;
+        });
+        return record;
+    }
+
     function alertIcon(type) {
         var icons = {
             late: '<svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>',
@@ -391,39 +436,9 @@
     }
 
     if (pageName === 'dashboard') {
-        // Same rooms, times and instructors as the admin portal's class list (AdminShared.js).
-        var todayClasses = [
-            { code: 'SWE 320', course: 'Software Engineering', room: 'Hall NB2', instructor: 'Dr. Samir Hassan', start: '09:00', end: '10:45', checkIn: '08:57' },
-            { code: 'CS 305', course: 'Database Systems', room: 'Lab A14', instructor: 'Dr. Karim Fathy', start: '11:00', end: '12:45', checkIn: '11:06' },
-            { code: 'AI 410', course: 'Artificial Intelligence', room: 'Hall NB1', instructor: 'Dr. Nadia Younes', start: '13:00', end: '14:45', checkIn: '12:56' }
-        ];
-        var lateAfterMinutes = 5;
-        var rosterStorageKey = 'campusLensAdminStudents';   // admin roster (UserMang.js), holds the face ID status
-        var studentId = '20230417';
-
-        function minutesOf(timeText) {
-            var parts = timeText.split(':');
-            return Number(parts[0]) * 60 + Number(parts[1]);
-        }
-
-        function formatClock(timeText) {
-            var minutes = minutesOf(timeText);
-            var hours = Math.floor(minutes / 60);
-            return ((hours + 11) % 12 + 1) + ':' + String(minutes % 60).padStart(2, '0') + ' ' + (hours >= 12 ? 'PM' : 'AM');
-        }
-
-        function formatWait(minutes) {
-            var total = Math.max(1, Math.round(minutes));
-            var hours = Math.floor(total / 60);
-            if (hours === 0) return total + ' min';
-            return hours + 'h' + (total % 60 ? ' ' + (total % 60) + 'm' : '');
-        }
-
         // phase: upcoming / active / completed. status: present / late / absent, or null before the check-in.
         function classState(item, nowMinutes) {
-            var phase = 'active';
-            if (nowMinutes < minutesOf(item.start)) phase = 'upcoming';
-            else if (nowMinutes >= minutesOf(item.end)) phase = 'completed';
+            var phase = classPhase(item, nowMinutes);
             var status = phase === 'completed' ? 'absent' : null;
             if (nowMinutes >= minutesOf(item.checkIn)) {
                 status = minutesOf(item.checkIn) - minutesOf(item.start) > lateAfterMinutes ? 'late' : 'present';
@@ -580,10 +595,7 @@
         }
 
         function renderFaceStatus() {
-            var record = null;
-            readSavedList(rosterStorageKey, []).forEach(function (student) {
-                if (student && String(student.id) === studentId) record = student;
-            });
+            var record = studentRecord();
             var value = document.getElementById('statFace');
             var foot = document.getElementById('statFaceFoot');
             if (record && record.faceStatus === 'pending') {
@@ -639,5 +651,404 @@
         });
         setInterval(renderSchedule, 30000);
         renderDashboard();
+    }
+
+    if (pageName === 'attendance') {
+        // Check-ins made on this page: [{ date, code, course, student, checkIn, checkOut, status }], times in ms.
+        var checkinsStorageKey = 'campusLensDemoCheckins';
+        var studentName = 'Ahmed Mohamed';
+        var classSelect = document.getElementById('classSelect');
+        var cameraView = document.getElementById('cameraView');
+        var video = document.getElementById('cameraVideo');
+        var cameraOverlay = document.getElementById('cameraOverlay');
+        var cameraPlaceholder = document.getElementById('cameraPlaceholder');
+        var demoFace = document.getElementById('demoFace');
+        var scanCaption = document.getElementById('scanCaption');
+        var scanProgress = document.getElementById('scanProgress');
+        var scanBar = document.getElementById('scanBar');
+        var startCameraButton = document.getElementById('startCamera');
+        var demoScanButton = document.getElementById('useDemoScan');
+        var stopCameraButton = document.getElementById('stopCamera');
+        var checkInButton = document.getElementById('checkInButton');
+        var checkOutButton = document.getElementById('checkOutButton');
+        var scanResult = document.getElementById('scanResult');
+        var cameraStream = null;
+        var demoMode = false;       // no camera available, so the scan is simulated
+        var scanning = false;
+        var scanTimer = null;
+        var resetTimer = null;
+        var frameCanvas = document.createElement('canvas');
+
+        function minutesNow() {
+            var now = new Date();
+            return now.getHours() * 60 + now.getMinutes() + now.getSeconds() / 60;
+        }
+
+        function formatTime(timestamp) {
+            return new Date(timestamp).toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit' });
+        }
+
+        function facePending() {
+            var record = studentRecord();
+            return Boolean(record && record.faceStatus === 'pending');
+        }
+
+        function todaysEntries() {
+            var today = localDateValue();
+            return readSavedList(checkinsStorageKey, []).filter(function (entry) {
+                return entry && entry.date === today;
+            });
+        }
+
+        function entryFor(code) {
+            return todaysEntries().filter(function (entry) { return entry.code === code; })[0] || null;
+        }
+
+        // The class the student checked in to and has not checked out of yet.
+        function openEntry() {
+            return todaysEntries().filter(function (entry) { return !entry.checkOut; })[0] || null;
+        }
+
+        function saveEntry(entry) {
+            var others = readSavedList(checkinsStorageKey, []).filter(function (saved) {
+                return saved && !(saved.date === entry.date && saved.code === entry.code);
+            });
+            saveList(checkinsStorageKey, others.concat([entry]));
+        }
+
+        function selectedClass() {
+            return todayClasses[classSelect.selectedIndex] || todayClasses[0];
+        }
+
+        // Open the page on the class that matters right now.
+        function defaultClassIndex() {
+            var now = minutesNow();
+            var open = openEntry();
+            var rules = [
+                function (item) { return open && open.code === item.code; },
+                function (item) { return classPhase(item, now) === 'active' && !entryFor(item.code); },
+                function (item) { return classPhase(item, now) === 'upcoming'; },
+                function (item) { var entry = entryFor(item.code); return !entry || !entry.checkOut; }
+            ];
+            for (var i = 0; i < rules.length; i += 1) {
+                var index = todayClasses.findIndex(rules[i]);
+                if (index !== -1) return index;
+            }
+            return todayClasses.length - 1;
+        }
+
+        function idleCaption() {
+            return demoMode ? 'Demo mode · no camera needed' : 'Align your face inside the frame';
+        }
+
+        function updateControls() {
+            var item = selectedClass();
+            var entry = entryFor(item.code);
+            var open = openEntry();
+            var faceOff = facePending();
+            checkInButton.disabled = scanning || faceOff || Boolean(entry) || Boolean(open);
+            checkOutButton.disabled = scanning || faceOff || !entry || Boolean(entry.checkOut);
+            classSelect.disabled = scanning;
+
+            var hint;
+            if (faceOff) hint = 'Your Face ID is pending, so face check-in is turned off. Contact the admin office to finish your enrollment.';
+            else if (entry && entry.checkOut) hint = 'You checked out of ' + item.course + ' at ' + formatTime(entry.checkOut) + '. Attendance for this class is complete.';
+            else if (entry) hint = 'You checked in at ' + formatTime(entry.checkIn) + '. Scan again to check out when class ends.';
+            else if (open) hint = 'You’re still checked in to ' + open.course + '. Check out of it before you check in to another class.';
+            else if (minutesNow() - minutesOf(item.start) > lateAfterMinutes) hint = item.course + ' started at ' + formatClock(item.start) + ', so checking in now counts as late.';
+            else hint = 'Check in within ' + lateAfterMinutes + ' minutes of the ' + formatClock(item.start) + ' start to be marked present.';
+            document.getElementById('scanHint').textContent = hint;
+
+            stopCameraButton.hidden = !cameraStream && !demoMode;
+            stopCameraButton.disabled = scanning;
+            stopCameraButton.textContent = demoMode ? 'Exit demo' : 'Turn off camera';
+            document.getElementById('cameraDot').className = 'tiny-dot ' + (cameraStream ? 'green' : demoMode ? 'blue' : 'gray');
+            document.getElementById('cameraLabel').textContent = cameraStream ? 'Camera on' : demoMode ? 'Demo scan' : 'Camera off';
+        }
+
+        function renderClassCard() {
+            var item = selectedClass();
+            var entry = entryFor(item.code);
+            var now = minutesNow();
+            var phase = classPhase(item, now);
+            var phaseText = '<span class="tiny-dot gray"></span>Ended ' + escapeHTML(formatClock(item.end));
+            if (phase === 'upcoming') phaseText = '<span class="tiny-dot blue"></span>Starts in ' + escapeHTML(formatWait(minutesOf(item.start) - now));
+            if (phase === 'active') phaseText = '<span class="tiny-dot green"></span>In session · ' + escapeHTML(formatWait(minutesOf(item.end) - now)) + ' left';
+
+            document.getElementById('classTitle').textContent = item.course;
+            document.getElementById('classMeta').textContent = item.code + ' · ' + item.room + ' · ' + item.instructor;
+            document.getElementById('factTime').textContent = formatClock(item.start) + ' – ' + formatClock(item.end);
+            document.getElementById('factPhase').innerHTML = phaseText;
+            document.getElementById('factCheckIn').textContent = entry
+                ? formatTime(entry.checkIn) + ' · ' + (entry.status === 'late' ? 'Late' : 'Present')
+                : 'Not yet';
+            document.getElementById('factCheckOut').textContent = entry && entry.checkOut ? formatTime(entry.checkOut) : '—';
+            document.getElementById('factFace').innerHTML = facePending()
+                ? '<span class="tiny-dot amber"></span>Pending'
+                : '<span class="tiny-dot green"></span>Enrolled';
+        }
+
+        function renderLog() {
+            var now = minutesNow();
+            var checkedIn = 0;
+            document.getElementById('checkinRows').innerHTML = todayClasses.map(function (item) {
+                var entry = entryFor(item.code);
+                var phase = classPhase(item, now);
+                var status;
+                if (entry) {
+                    checkedIn += 1;
+                    status = '<span class="status-badge status-' + escapeHTML(entry.status) + '">' + (entry.status === 'late' ? 'Late' : 'Present') + '</span>' +
+                        '<small class="slot-note">' + (entry.checkOut ? 'Checked out' : 'Still in class') + '</small>';
+                } else if (phase === 'active') {
+                    status = '<span class="status-badge status-awaiting">Awaiting check-in</span>';
+                } else if (phase === 'upcoming') {
+                    status = '<span class="status-badge status-upcoming">Upcoming</span>';
+                } else {
+                    status = '<span class="status-badge status-absent">Not checked in</span>';
+                }
+                return '<tr' + (phase === 'active' ? ' class="schedule-live"' : '') + '>' +
+                    '<td class="course-cell"><strong><span class="course-code">' + escapeHTML(item.code) + '</span>' + escapeHTML(item.course) + '</strong><small>' + escapeHTML(item.room + ' · ' + item.instructor) + '</small></td>' +
+                    '<td class="time-cell">' + escapeHTML(formatClock(item.start) + ' – ' + formatClock(item.end)) + '</td>' +
+                    '<td class="time-cell">' + (entry ? escapeHTML(formatTime(entry.checkIn)) : '—') + '</td>' +
+                    '<td class="time-cell">' + (entry && entry.checkOut ? escapeHTML(formatTime(entry.checkOut)) : '—') + '</td>' +
+                    '<td>' + status + '</td>' +
+                    '</tr>';
+            }).join('');
+            document.getElementById('checkinCountPill').textContent = checkedIn + ' of ' + todayClasses.length + ' checked in';
+        }
+
+        function renderHeadingStatus() {
+            var open = openEntry();
+            document.getElementById('attendanceStatusDot').className = 'tiny-dot ' + (open ? 'green' : 'blue');
+            document.getElementById('attendanceStatusLabel').textContent = open ? 'Checked in · ' + open.course : 'Not checked in';
+        }
+
+        function renderPage() {
+            renderClassCard();
+            renderLog();
+            renderHeadingStatus();
+            updateControls();
+        }
+
+        function setViewState(state, caption) {
+            var placeholderShown = ['off', 'starting', 'error', 'done'].indexOf(state) !== -1;
+            cameraView.setAttribute('data-state', state);
+            cameraPlaceholder.hidden = !placeholderShown;
+            cameraOverlay.hidden = placeholderShown;
+            video.hidden = placeholderShown || demoMode;
+            demoFace.toggleAttribute('hidden', !demoMode);   // an <svg> has no .hidden property
+            document.getElementById('cameraBadgeText').textContent = demoMode ? 'DEMO' : 'LIVE';
+            scanProgress.hidden = ['scanning', 'verified', 'failed'].indexOf(state) === -1;
+            if (caption) scanCaption.textContent = caption;
+            updateControls();
+        }
+
+        function showPlaceholder(state, title, text) {
+            document.getElementById('placeholderTitle').textContent = title;
+            document.getElementById('placeholderText').textContent = text;
+            document.getElementById('startCameraLabel').textContent = state === 'error' ? 'Try again' : 'Start camera';
+            startCameraButton.hidden = state === 'starting';
+            demoScanButton.hidden = state !== 'error';
+            setViewState(state);
+        }
+
+        function showCameraOff() {
+            showPlaceholder('off', 'Your camera is off', 'Start the camera to preview your face, or press Check in and it will turn on by itself.');
+        }
+
+        function stopCamera() {
+            if (cameraStream) {
+                cameraStream.getTracks().forEach(function (track) { track.stop(); });
+                cameraStream = null;
+            }
+            video.srcObject = null;
+        }
+
+        function openCamera() {
+            if (!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia) {
+                return Promise.reject({ name: 'NotSupportedError' });
+            }
+            showPlaceholder('starting', 'Starting your camera…', 'If your browser asks, allow camera access for this page.');
+            return navigator.mediaDevices.getUserMedia({ video: { facingMode: 'user' }, audio: false }).then(function (stream) {
+                cameraStream = stream;
+                demoMode = false;
+                video.srcObject = stream;
+                return video.play().catch(function () { /* muted inline video still shows frames */ });
+            }).then(function () {
+                setViewState('live', idleCaption());
+            });
+        }
+
+        function showCameraError(error) {
+            var name = error && error.name;
+            var title = 'The camera didn’t start';
+            var text = 'Try again, or continue with a demo scan.';
+            if (name === 'NotAllowedError' || name === 'SecurityError') {
+                title = 'Camera access is blocked';
+                text = 'Allow camera access from your browser’s address bar and try again, or continue with a demo scan.';
+            } else if (name === 'NotFoundError' || name === 'OverconstrainedError') {
+                title = 'No camera found';
+                text = 'Connect a camera and try again, or continue with a demo scan.';
+            } else if (name === 'NotReadableError') {
+                title = 'Your camera is busy';
+                text = 'Another app may be using the camera. Close it and try again, or continue with a demo scan.';
+            } else if (name === 'NotSupportedError') {
+                title = 'Camera not available here';
+                text = 'This browser can’t open the camera on this page. Continue with a demo scan instead.';
+            }
+            stopCamera();
+            showPlaceholder('error', title, text);
+        }
+
+        // Stand-in for face detection: a covered or pitch-dark camera fails the scan.
+        function frameIsTooDark() {
+            if (!cameraStream || !video.videoWidth) return false;
+            try {
+                frameCanvas.width = 32;
+                frameCanvas.height = 24;
+                var context = frameCanvas.getContext('2d');
+                context.drawImage(video, 0, 0, 32, 24);
+                var pixels = context.getImageData(0, 0, 32, 24).data;
+                var brightness = 0;
+                for (var i = 0; i < pixels.length; i += 4) {
+                    brightness += pixels[i] * 0.299 + pixels[i + 1] * 0.587 + pixels[i + 2] * 0.114;
+                }
+                return brightness / (pixels.length / 4) < 28;
+            } catch (error) {
+                return false;
+            }
+        }
+
+        function showResult(kind, title, text) {
+            scanResult.innerHTML = '<div class="scan-result kind-' + escapeHTML(kind) + '">' +
+                '<span class="notification-icon kind-' + escapeHTML(kind) + '">' + alertIcon(kind) + '</span>' +
+                '<div><strong>' + escapeHTML(title) + '</strong><p>' + escapeHTML(text) + '</p></div></div>';
+        }
+
+        function recordCheckIn(item) {
+            var now = Date.now();
+            var late = minutesNow() - minutesOf(item.start) > lateAfterMinutes;
+            saveEntry({ date: localDateValue(), code: item.code, course: item.course, student: studentName, checkIn: now, checkOut: null, status: late ? 'late' : 'present' });
+            if (late) showResult('late', 'Checked in at ' + formatTime(now), item.course + ' started at ' + formatClock(item.start) + ', so this counts as a late arrival.');
+            else showResult('approved', 'Checked in at ' + formatTime(now), 'You’re marked present for ' + item.course + '. Have a great class!');
+        }
+
+        function recordCheckOut(item) {
+            var entry = entryFor(item.code);
+            var now = Date.now();
+            if (!entry) return;
+            entry.checkOut = now;
+            saveEntry(entry);
+            showResult('approved', 'Checked out at ' + formatTime(now), 'You were in ' + item.course + ' for ' + formatWait((now - entry.checkIn) / 60000) + '. See you next time!');
+        }
+
+        function wait(milliseconds) {
+            return new Promise(function (resolve) { scanTimer = setTimeout(resolve, milliseconds); });
+        }
+
+        function restartProgress(percent) {
+            scanBar.style.transition = 'none';
+            scanBar.style.width = '0';
+            void scanBar.offsetWidth;   // apply the reset before animating again
+            scanBar.style.transition = '';
+            scanBar.style.width = percent + '%';
+        }
+
+        // After a successful scan the camera turns itself off.
+        function finishScan(mode) {
+            if (demoMode) {
+                setViewState('live', idleCaption());
+                return;
+            }
+            stopCamera();
+            if (mode === 'out') showPlaceholder('done', 'You’re checked out', 'The camera turned off for your privacy. See you at your next class.');
+            else showPlaceholder('done', 'You’re checked in', 'The camera turned off for your privacy. Press Check out when class ends.');
+        }
+
+        function runScan(mode) {
+            var item = selectedClass();
+            if (scanning) return;
+            clearTimeout(resetTimer);
+            scanning = true;
+            scanResult.innerHTML = '';
+            updateControls();
+
+            var cameraReady = cameraStream || demoMode ? Promise.resolve() : openCamera();
+            cameraReady.then(function () {
+                setViewState('scanning', 'Looking for your face…');
+                restartProgress(40);
+                return wait(1000);
+            }).then(function () {
+                if (frameIsTooDark()) return Promise.reject('no-face');
+                setViewState('scanning', 'Matching with your Face ID…');
+                scanBar.style.width = '85%';
+                return wait(1100);
+            }).then(function () {
+                scanning = false;
+                scanBar.style.width = '100%';
+                if (mode === 'in') recordCheckIn(item);
+                else recordCheckOut(item);
+                setViewState('verified', 'Verified · ' + studentName);
+                renderPage();
+                resetTimer = setTimeout(function () { finishScan(mode); }, 2600);
+            }).catch(function (error) {
+                scanning = false;
+                if (error === 'no-face') {
+                    setViewState('failed', 'No face detected');
+                    showResult('absent', 'We couldn’t see your face', 'Make sure your face is well lit and not covered, then try again.');
+                    resetTimer = setTimeout(function () { setViewState('live', idleCaption()); }, 2200);
+                } else {
+                    showCameraError(error);
+                }
+            });
+        }
+
+        classSelect.innerHTML = todayClasses.map(function (item) {
+            return '<option value="' + escapeHTML(item.code) + '">' + escapeHTML(item.code + ' · ' + item.course) + '</option>';
+        }).join('');
+        classSelect.selectedIndex = defaultClassIndex();
+
+        classSelect.addEventListener('change', function () {
+            scanResult.innerHTML = '';
+            renderPage();
+        });
+        checkInButton.addEventListener('click', function () { runScan('in'); });
+        checkOutButton.addEventListener('click', function () { runScan('out'); });
+        startCameraButton.addEventListener('click', function () {
+            clearTimeout(resetTimer);
+            openCamera().catch(showCameraError);
+        });
+        demoScanButton.addEventListener('click', function () {
+            demoMode = true;
+            setViewState('live', idleCaption());
+        });
+        stopCameraButton.addEventListener('click', function () {
+            clearTimeout(resetTimer);
+            stopCamera();
+            demoMode = false;
+            showCameraOff();
+        });
+
+        // Check-ins and the face ID status can change in another tab (admin portal or a second copy of this page).
+        window.addEventListener('storage', function (event) {
+            if (event.key === null || event.key === checkinsStorageKey || event.key === rosterStorageKey) renderPage();
+        });
+        // Never leave the camera running after the student leaves the page.
+        window.addEventListener('pagehide', function () {
+            clearTimeout(scanTimer);
+            clearTimeout(resetTimer);
+            stopCamera();
+        });
+        window.addEventListener('pageshow', function (event) {
+            if (!event.persisted) return;
+            scanning = false;
+            demoMode = false;
+            showCameraOff();
+            renderPage();
+        });
+        setInterval(renderPage, 30000);
+
+        showCameraOff();
+        renderPage();
     }
 }());
