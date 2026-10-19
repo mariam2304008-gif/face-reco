@@ -111,15 +111,24 @@
 
     function defaultCourses() {
         return [
-            { code: 'CS 340', name: 'Computer Networks', room: 'Hall C03', instructor: 'Dr. Laila Nabil', start: '08:30', end: '10:15', enrolled: 74, rate: 0.91 },
-            { code: 'SWE 320', name: 'Software Engineering', room: 'Hall NB2', instructor: 'Dr. Samir Hassan', start: '09:00', end: '10:45', enrolled: 92, rate: 0.957 },
-            { code: 'CS 305', name: 'Database Systems', room: 'Lab A14', instructor: 'Dr. Karim Fathy', start: '11:00', end: '12:45', enrolled: 38, rate: 0.89 },
-            { code: 'AI 410', name: 'Artificial Intelligence', room: 'Hall NB1', instructor: 'Dr. Nadia Younes', start: '13:00', end: '14:45', enrolled: 85, rate: 0.93 },
-            { code: 'CS 220', name: 'Data Structures', room: 'Lab B06', instructor: 'Dr. Hany Mostafa', start: '15:00', end: '16:45', enrolled: 40, rate: 0.87 },
-            { code: 'MATH 210', name: 'Discrete Mathematics', room: 'Hall A02', instructor: 'Dr. Rana Saeed', start: '16:00', end: '17:45', enrolled: 120, rate: 0.84 },
-            { code: 'CS 450', name: 'Computer Vision', room: 'Lab C11', instructor: 'Dr. Tarek Aziz', start: '17:30', end: '19:15', enrolled: 32, rate: 0.94 },
-            { code: 'SEC 330', name: 'Information Security', room: 'Hall NB3', instructor: 'Dr. Mona Gamal', start: '18:00', end: '19:45', enrolled: 56, rate: 0.9 },
-            { code: 'ENG 201', name: 'Technical Writing', room: 'Hall B01', instructor: 'Dr. Yasmin Adel', start: '18:30', end: '20:15', enrolled: 60, rate: 0.86 }
+            // Computer Science
+            { code: 'SWE 320', name: 'Software Engineering', room: 'Hall NB2', instructor: 'Dr. Samir Hassan', start: '08:30', end: '10:15', enrolled: 92, rate: 0.957 },
+            { code: 'CS 340', name: 'Computer Networks', room: 'Hall C03', instructor: 'Dr. Laila Nabil', start: '09:00', end: '10:45', enrolled: 74, rate: 0.91 },
+
+            // Faculty of Dentistry
+            { code: 'DENT 201', name: 'Oral Anatomy', room: 'Lab A14', instructor: 'Dr. Mona Farid', start: '11:00', end: '12:45', enrolled: 45, rate: 0.93 },
+            { code: 'DENT 315', name: 'Operative Dentistry', room: 'Lab B06', instructor: 'Dr. Hazem Taha', start: '13:00', end: '14:45', enrolled: 40, rate: 0.88 },
+
+            // Faculty of Mass Communication
+            { code: 'MCOM 101', name: 'Intro to Media', room: 'Hall NB1', instructor: 'Dr. Tarek Nabil', start: '14:00', end: '15:45', enrolled: 85, rate: 0.92 },
+            { code: 'MCOM 210', name: 'Digital Storytelling', room: 'Hall A02', instructor: 'Dr. Salma Riad', start: '15:30', end: '17:15', enrolled: 65, rate: 0.89 },
+
+            // Faculty of Business Administration
+            { code: 'BUS 210', name: 'Principles of Marketing', room: 'Hall C03', instructor: 'Dr. Sherif Adel', start: '16:00', end: '17:45', enrolled: 110, rate: 0.87 },
+            { code: 'BUS 102', name: 'Financial Accounting', room: 'Hall NB3', instructor: 'Dr. Magdy Youssef', start: '17:00', end: '18:45', enrolled: 95, rate: 0.85 },
+
+            // Faculty of Alsun / Languages
+            { code: 'LANG 110', name: 'English Phonetics', room: 'Hall B01', instructor: 'Dr. Rania Ezzat', start: '18:00', end: '19:45', enrolled: 50, rate: 0.94 }
         ];
     }
 
@@ -142,13 +151,12 @@
             };
         }
         return [
-            // Ahmed's three requests are identical to the defaults in CampusPages.js.
-            { id: 1, date: '2026-10-14', course: 'Database Systems', status: 'pending', requestedStatus: 'Present', reason: 'I arrived before the class began, but my scan did not register at the entrance.', detail: 'Submitted October 14, 2026 · Waiting for instructor review.', student: STUDENT_NAME, submittedAt: stamp('2026-10-14T11:30:00') },
-            { id: 2, date: '2026-09-28', course: 'Computer Networks', status: 'approved', requestedStatus: 'Present', reason: 'The attendance system did not recognize my face during the first scan.', detail: 'Approved October 1, 2026 · Your attendance record was updated.', student: STUDENT_NAME, submittedAt: stamp('2026-09-28T13:00:00') },
-            { id: 3, date: '2026-09-24', course: 'Database Systems', status: 'rejected', requestedStatus: 'Present', reason: 'I was present in the class, but I forgot to check the attendance result.', detail: 'Reviewed September 27, 2026 · The instructor could not confirm attendance for this session.', student: STUDENT_NAME, submittedAt: stamp('2026-09-24T12:20:00') },
-            other(101, 'Sara Khaled', 'Computer Networks', 20, 'Present', 'My face scan failed twice at the door because of the glare, but I sat in the second row.'),
-            other(102, 'Omar Hassan', 'Artificial Intelligence', 61, 'Present', 'I was marked absent but I presented my group project during this lecture.'),
-            other(103, 'Mariam Adel', 'Software Engineering', 30, 'Late', 'I was marked absent, but I entered about ten minutes after the class started.')
+            { id: 1, date: '2026-10-14', course: 'Oral Anatomy', status: 'pending', requestedStatus: 'Present', reason: 'I arrived before the class began, but my scan did not register at the entrance.', detail: 'Submitted October 14, 2026 · Waiting for instructor review.', student: STUDENT_NAME, submittedAt: stamp('2026-10-14T11:30:00') },
+            { id: 2, date: '2026-09-28', course: 'Software Engineering', status: 'approved', requestedStatus: 'Present', reason: 'The attendance system did not recognize my face during the first scan.', detail: 'Approved October 1, 2026 · Your attendance record was updated.', student: STUDENT_NAME, submittedAt: stamp('2026-09-28T13:00:00') },
+            { id: 3, date: '2026-09-24', course: 'Principles of Marketing', status: 'rejected', requestedStatus: 'Present', reason: 'I was present in the class, but I forgot to check the attendance result.', detail: 'Reviewed September 27, 2026 · The instructor could not confirm attendance for this session.', student: STUDENT_NAME, submittedAt: stamp('2026-09-24T12:20:00') },
+            other(101, 'Sara Khaled', 'Intro to Media', 20, 'Present', 'My face scan failed twice at the door because of the glare, but I sat in the second row.'),
+            other(102, 'Omar Hassan', 'Oral Anatomy', 61, 'Present', 'I was marked absent but I presented my group project during this practical lab.'),
+            other(103, 'Mariam Adel', 'English Phonetics', 30, 'Late', 'I was marked absent, but I entered about ten minutes after the session started.')
         ];
     }
 
@@ -377,7 +385,7 @@
 
         var studentAlerts = readSavedList(KEYS.studentAlerts, null) || studentAlertDefaults();
         studentAlerts.unshift({
-                        id: now, type: details.priority === 'emergency' ? 'emergency' : (details.priority === 'urgent' ? 'reminder' : 'info'), title: details.title,
+            id: now, type: details.priority === 'emergency' ? 'emergency' : (details.priority === 'urgent' ? 'reminder' : 'info'), title: details.title,
             message: details.message, tag: details.priority === 'emergency' ? 'Emergency alert' : 'Campus announcement', time: formatDateTime(now), unread: true, action: 'History'
         });
         saveList(KEYS.studentAlerts, studentAlerts);

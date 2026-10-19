@@ -55,21 +55,21 @@
                 active: options.active !== false
             };
         }
-        return [
+   return [
             make('20230417', 'Ahmed Mohamed', 'Computer Science', { lastActive: 35 * MINUTE, enrolledDays: 62 }),
-            make('20230562', 'Sara Khaled', 'Software Engineering', { lastActive: 3 * HOUR, enrolledDays: 58 }),
-            make('20230188', 'Omar Hassan', 'Artificial Intelligence', { lastActive: 26 * HOUR, enrolledDays: 61 }),
-            make('20230731', 'Mariam Adel', 'Software Engineering', { lastActive: 5 * HOUR, enrolledDays: 49 }),
-            make('20230245', 'Youssef Nabil', 'Computer Science', { lastActive: 50 * HOUR, enrolledDays: 55 }),
-            make('20230619', 'Nour El-Din', 'Cybersecurity', { enrolled: false, lastActive: 3 * DAY }),
-            make('20230854', 'Hana Mostafa', 'Information Systems', { lastActive: HOUR, enrolledDays: 40 }),
-            make('20230372', 'Karim Samir', 'Electrical Engineering', { lastActive: 9 * DAY, enrolledDays: 60, active: false }),
+            make('20230562', 'Sara Khaled', 'Mass Communication', { lastActive: 3 * HOUR, enrolledDays: 58 }),
+            make('20230188', 'Omar Hassan', 'Dentistry', { lastActive: 26 * HOUR, enrolledDays: 61 }),
+            make('20230731', 'Mariam Adel', 'Alsun / Languages', { lastActive: 5 * HOUR, enrolledDays: 49 }),
+            make('20230245', 'Youssef Nabil', 'Business Administration', { lastActive: 50 * HOUR, enrolledDays: 55 }),
+            make('20230619', 'Nour El-Din', 'Dentistry', { enrolled: false, lastActive: 3 * DAY }),
+            make('20230854', 'Hana Mostafa', 'Mass Communication', { lastActive: HOUR, enrolledDays: 40 }),
+            make('20230372', 'Karim Samir', 'Business Administration', { lastActive: 9 * DAY, enrolledDays: 60, active: false }),
             make('20230908', 'Laila Fathy', 'Business Administration', { enrolled: false, lastActive: 6 * DAY }),
             make('20230126', 'Tamer Ibrahim', 'Computer Science', { lastActive: 28 * HOUR, enrolledDays: 64 }),
-            make('20230497', 'Dina Ashraf', 'Artificial Intelligence', { lastActive: 2 * HOUR, enrolledDays: 47 }),
-            make('20230683', 'Mostafa Zaki', 'Cybersecurity', { lastActive: 4 * DAY, enrolledDays: 52 }),
-            make('20231015', 'Rana Hesham', 'Information Systems', { enrolled: false, lastActive: null }),
-            make('20230531', 'Adam Salem', 'Electrical Engineering', { lastActive: 12 * HOUR, enrolledDays: 44 })
+            make('20230497', 'Dina Ashraf', 'Alsun / Languages', { lastActive: 2 * HOUR, enrolledDays: 47 }),
+            make('20230683', 'Mostafa Zaki', 'Dentistry', { lastActive: 4 * DAY, enrolledDays: 52 }),
+            make('20231015', 'Rana Hesham', 'Mass Communication', { enrolled: false, lastActive: null }),
+            make('20230531', 'Adam Salem', 'Alsun / Languages', { lastActive: 12 * HOUR, enrolledDays: 44 })
         ];
     }
 
