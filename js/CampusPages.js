@@ -66,7 +66,53 @@
         return date.getFullYear() + '-' + month + '-' + day;
     }
 
+    // Demo data used by more than one student page (the dashboard reads all three lists).
+    var historyRecords = [
+        { date: '2026-10-16', course: 'Software Engineering', code: 'SWE 320', room: 'Hall NB2', checkIn: '09:02 AM', checkOut: '10:48 AM', status: 'present' },
+        { date: '2026-10-14', course: 'Database Systems', code: 'CS 305', room: 'Lab A14', checkIn: '11:08 AM', checkOut: '12:52 PM', status: 'late' },
+        { date: '2026-10-12', course: 'Computer Networks', code: 'CS 340', room: 'Hall C03', checkIn: '08:54 AM', checkOut: '10:35 AM', status: 'present' },
+        { date: '2026-10-10', course: 'Artificial Intelligence', code: 'AI 410', room: 'Hall NB1', checkIn: '01:02 PM', checkOut: '02:46 PM', status: 'present' },
+        { date: '2026-10-08', course: 'Data Structures', code: 'CS 220', room: 'Lab B06', checkIn: '—', checkOut: '—', status: 'absent' },
+        { date: '2026-10-06', course: 'Software Engineering', code: 'SWE 320', room: 'Hall NB2', checkIn: '08:57 AM', checkOut: '10:41 AM', status: 'present' },
+        { date: '2026-10-04', course: 'Database Systems', code: 'CS 305', room: 'Lab A14', checkIn: '11:01 AM', checkOut: '12:45 PM', status: 'present' },
+        { date: '2026-10-02', course: 'Computer Networks', code: 'CS 340', room: 'Hall C03', checkIn: '09:00 AM', checkOut: '10:42 AM', status: 'present' }
+    ];
+
+    var defaultAlerts = [
+        { id: 1, type: 'late', title: 'Late check-in recorded', message: 'Your Database Systems attendance on October 14 was recorded at 11:08 AM. If this looks incorrect, you can request a review.', tag: 'Database Systems · CS 305', time: 'Oct 14 · 11:10 AM', unread: true, action: 'History' },
+        { id: 2, type: 'reminder', title: 'Class starts in 30 minutes', message: 'Software Engineering with Dr. Samir Hassan begins at 9:00 AM in Hall NB2. Have a great class.', tag: 'Software Engineering · SWE 320', time: 'Oct 16 · 8:30 AM', unread: true, action: 'History' },
+        { id: 3, type: 'absent', title: 'Attendance marked absent', message: 'You were marked absent for Data Structures on October 8. If you attended class, you can send a correction request.', tag: 'Data Structures · CS 220', time: 'Oct 8 · 10:50 AM', unread: true, action: 'Correction request' },
+        { id: 4, type: 'approved', title: 'Correction request approved', message: 'Your attendance correction for Computer Networks on September 28 has been approved by your instructor.', tag: 'Computer Networks · CS 340', time: 'Oct 1 · 2:15 PM', unread: false, action: 'History' },
+        { id: 5, type: 'info', title: 'Your weekly summary is ready', message: 'You attended 5 out of 6 scheduled classes last week. Your attendance rate is currently 90%.', tag: 'Weekly summary', time: 'Sep 29 · 9:00 AM', unread: false, action: 'History' },
+        { id: 6, type: 'reminder', title: 'Correction request received', message: 'Your request for Database Systems on September 24 is in review. We’ll let you know when it has been updated.', tag: 'Database Systems · CS 305', time: 'Sep 25 · 12:20 PM', unread: false, action: 'Correction request' }
+    ];
+
+    var defaultRequests = [
+        { id: 1, date: '2026-10-14', course: 'Database Systems', status: 'pending', requestedStatus: 'Present', reason: 'I arrived before the class began, but my scan did not register at the entrance.', detail: 'Submitted October 14, 2026 · Waiting for instructor review.' },
+        { id: 2, date: '2026-09-28', course: 'Computer Networks', status: 'approved', requestedStatus: 'Present', reason: 'The attendance system did not recognize my face during the first scan.', detail: 'Approved October 1, 2026 · Your attendance record was updated.' },
+        { id: 3, date: '2026-09-24', course: 'Database Systems', status: 'rejected', requestedStatus: 'Present', reason: 'I was present in the class, but I forgot to check the attendance result.', detail: 'Reviewed September 27, 2026 · The instructor could not confirm attendance for this session.' }
+    ];
+
+    function alertIcon(type) {
+        var icons = {
+            late: '<svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>',
+            absent: '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="m7 7 10 10M17 7 7 17"/><circle cx="12" cy="12" r="9"/></svg>',
+            approved: '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="m5 12 4 4L19 6"/><circle cx="12" cy="12" r="9"/></svg>',
+            emergency: '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3 2.5 20h19L12 3Z"/><path d="M12 10v4M12 17h.01"/></svg>',
+            reminder: '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M18 8a6 6 0 0 0-12 0c0 7-3 7-3 9h18c0-2-3-2-3-9M10 21h4"/></svg>',
+            info: '<svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 11v5M12 8h.01"/></svg>'
+        };
+        return icons[type] || icons.info;
+    }
+
     showToday();
+
+    // On small screens the sidebar turns into a scrolling row, so bring the current page's link into view.
+    var sideNav = document.querySelector('.side-nav');
+    var activeNavLink = sideNav ? sideNav.querySelector('.nav-link.active') : null;
+    if (activeNavLink && sideNav.scrollWidth > sideNav.clientWidth) {
+        sideNav.scrollLeft = activeNavLink.offsetLeft - sideNav.offsetLeft - (sideNav.clientWidth - activeNavLink.offsetWidth) / 2;
+    }
 
     var savedAlerts = readSavedList(alertsStorageKey, null);
     var savedUnreadCount = savedAlerts
@@ -82,17 +128,6 @@
     });
 
     if (pageName === 'history') {
-        var historyRecords = [
-            { date: '2026-10-16', course: 'Software Engineering', code: 'SWE 320', room: 'Hall NB2', checkIn: '09:02 AM', checkOut: '10:48 AM', status: 'present' },
-            { date: '2026-10-14', course: 'Database Systems', code: 'CS 305', room: 'Lab A14', checkIn: '11:08 AM', checkOut: '12:52 PM', status: 'late' },
-            { date: '2026-10-12', course: 'Computer Networks', code: 'CS 340', room: 'Hall C03', checkIn: '08:54 AM', checkOut: '10:35 AM', status: 'present' },
-            { date: '2026-10-10', course: 'Artificial Intelligence', code: 'AI 410', room: 'Hall NB1', checkIn: '01:02 PM', checkOut: '02:46 PM', status: 'present' },
-            { date: '2026-10-08', course: 'Data Structures', code: 'CS 220', room: 'Lab B06', checkIn: '—', checkOut: '—', status: 'absent' },
-            { date: '2026-10-06', course: 'Software Engineering', code: 'SWE 320', room: 'Hall NB2', checkIn: '08:57 AM', checkOut: '10:41 AM', status: 'present' },
-            { date: '2026-10-04', course: 'Database Systems', code: 'CS 305', room: 'Lab A14', checkIn: '11:01 AM', checkOut: '12:45 PM', status: 'present' },
-            { date: '2026-10-02', course: 'Computer Networks', code: 'CS 340', room: 'Hall C03', checkIn: '09:00 AM', checkOut: '10:42 AM', status: 'present' }
-        ];
-
         var searchInput = document.getElementById('historySearch');
         var dateFilter = document.getElementById('dateFilter');
         var statusFilter = document.getElementById('statusFilter');
@@ -150,30 +185,10 @@
     }
 
     if (pageName === 'alerts') {
-        var defaultAlerts = [
-            { id: 1, type: 'late', title: 'Late check-in recorded', message: 'Your Database Systems attendance on October 14 was recorded at 11:08 AM. If this looks incorrect, you can request a review.', tag: 'Database Systems · CS 305', time: 'Oct 14 · 11:10 AM', unread: true, action: 'History' },
-            { id: 2, type: 'reminder', title: 'Class starts in 30 minutes', message: 'Software Engineering with Dr. Samir Hassan begins at 9:00 AM in Hall NB2. Have a great class.', tag: 'Software Engineering · SWE 320', time: 'Oct 16 · 8:30 AM', unread: true, action: 'History' },
-            { id: 3, type: 'absent', title: 'Attendance marked absent', message: 'You were marked absent for Data Structures on October 8. If you attended class, you can send a correction request.', tag: 'Data Structures · CS 220', time: 'Oct 8 · 10:50 AM', unread: true, action: 'Correction request' },
-            { id: 4, type: 'approved', title: 'Correction request approved', message: 'Your attendance correction for Computer Networks on September 28 has been approved by your instructor.', tag: 'Computer Networks · CS 340', time: 'Oct 1 · 2:15 PM', unread: false, action: 'History' },
-            { id: 5, type: 'info', title: 'Your weekly summary is ready', message: 'You attended 5 out of 6 scheduled classes last week. Your attendance rate is currently 90%.', tag: 'Weekly summary', time: 'Sep 29 · 9:00 AM', unread: false, action: 'History' },
-            { id: 6, type: 'reminder', title: 'Correction request received', message: 'Your request for Database Systems on September 24 is in review. We’ll let you know when it has been updated.', tag: 'Database Systems · CS 305', time: 'Sep 25 · 12:20 PM', unread: false, action: 'Correction request' }
-        ];
         var alerts = readSavedList(alertsStorageKey, defaultAlerts);
         var activeAlertFilter = 'all';
         var alertList = document.getElementById('notificationList');
         var alertEmpty = document.getElementById('notificationEmpty');
-
-        function alertIcon(type) {
-            var icons = {
-                late: '<svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>',
-                absent: '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="m7 7 10 10M17 7 7 17"/><circle cx="12" cy="12" r="9"/></svg>',
-                approved: '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="m5 12 4 4L19 6"/><circle cx="12" cy="12" r="9"/></svg>',
-                emergency: '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3 2.5 20h19L12 3Z"/><path d="M12 10v4M12 17h.01"/></svg>',
-                reminder: '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M18 8a6 6 0 0 0-12 0c0 7-3 7-3 9h18c0-2-3-2-3-9M10 21h4"/></svg>',
-                info: '<svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 11v5M12 8h.01"/></svg>'
-            };
-            return icons[type] || icons.info;
-        }
 
         function renderAlerts() {
             var unreadCount = alerts.filter(function (alert) { return alert.unread; }).length;
@@ -243,11 +258,6 @@
     }
 
     if (pageName === 'corrections') {
-        var defaultRequests = [
-            { id: 1, date: '2026-10-14', course: 'Database Systems', status: 'pending', requestedStatus: 'Present', reason: 'I arrived before the class began, but my scan did not register at the entrance.', detail: 'Submitted October 14, 2026 · Waiting for instructor review.' },
-            { id: 2, date: '2026-09-28', course: 'Computer Networks', status: 'approved', requestedStatus: 'Present', reason: 'The attendance system did not recognize my face during the first scan.', detail: 'Approved October 1, 2026 · Your attendance record was updated.' },
-            { id: 3, date: '2026-09-24', course: 'Database Systems', status: 'rejected', requestedStatus: 'Present', reason: 'I was present in the class, but I forgot to check the attendance result.', detail: 'Reviewed September 27, 2026 · The instructor could not confirm attendance for this session.' }
-        ];
         var requests = readSavedList(requestsStorageKey, defaultRequests);
         function myRequests() {
             return requests.filter(function (request) {
@@ -378,5 +388,256 @@
         });
 
         renderRequests();
+    }
+
+    if (pageName === 'dashboard') {
+        // Same rooms, times and instructors as the admin portal's class list (AdminShared.js).
+        var todayClasses = [
+            { code: 'SWE 320', course: 'Software Engineering', room: 'Hall NB2', instructor: 'Dr. Samir Hassan', start: '09:00', end: '10:45', checkIn: '08:57' },
+            { code: 'CS 305', course: 'Database Systems', room: 'Lab A14', instructor: 'Dr. Karim Fathy', start: '11:00', end: '12:45', checkIn: '11:06' },
+            { code: 'AI 410', course: 'Artificial Intelligence', room: 'Hall NB1', instructor: 'Dr. Nadia Younes', start: '13:00', end: '14:45', checkIn: '12:56' }
+        ];
+        var lateAfterMinutes = 5;
+        var rosterStorageKey = 'campusLensAdminStudents';   // admin roster (UserMang.js), holds the face ID status
+        var studentId = '20230417';
+
+        function minutesOf(timeText) {
+            var parts = timeText.split(':');
+            return Number(parts[0]) * 60 + Number(parts[1]);
+        }
+
+        function formatClock(timeText) {
+            var minutes = minutesOf(timeText);
+            var hours = Math.floor(minutes / 60);
+            return ((hours + 11) % 12 + 1) + ':' + String(minutes % 60).padStart(2, '0') + ' ' + (hours >= 12 ? 'PM' : 'AM');
+        }
+
+        function formatWait(minutes) {
+            var total = Math.max(1, Math.round(minutes));
+            var hours = Math.floor(total / 60);
+            if (hours === 0) return total + ' min';
+            return hours + 'h' + (total % 60 ? ' ' + (total % 60) + 'm' : '');
+        }
+
+        // phase: upcoming / active / completed. status: present / late / absent, or null before the check-in.
+        function classState(item, nowMinutes) {
+            var phase = 'active';
+            if (nowMinutes < minutesOf(item.start)) phase = 'upcoming';
+            else if (nowMinutes >= minutesOf(item.end)) phase = 'completed';
+            var status = phase === 'completed' ? 'absent' : null;
+            if (nowMinutes >= minutesOf(item.checkIn)) {
+                status = minutesOf(item.checkIn) - minutesOf(item.start) > lateAfterMinutes ? 'late' : 'present';
+            }
+            return { phase: phase, status: status };
+        }
+
+        function renderSchedule() {
+            var now = new Date();
+            var nowMinutes = now.getHours() * 60 + now.getMinutes() + now.getSeconds() / 60;
+            var currentClass = null;
+            var nextClass = null;
+            var finishedCount = 0;
+
+            document.getElementById('todayRows').innerHTML = todayClasses.map(function (item) {
+                var state = classState(item, nowMinutes);
+                var timeNote = 'Finished';
+                if (state.phase === 'upcoming') timeNote = 'Starts in ' + formatWait(minutesOf(item.start) - nowMinutes);
+                if (state.phase === 'active') timeNote = 'Ends in ' + formatWait(minutesOf(item.end) - nowMinutes);
+                if (state.phase === 'completed') finishedCount += 1;
+                if (state.phase === 'active' && !currentClass) currentClass = item;
+                if (state.phase === 'upcoming' && !nextClass) nextClass = item;
+
+                var statusCell;
+                if (state.status === 'present' || state.status === 'late') {
+                    statusCell = '<span class="status-badge status-' + state.status + '">' + (state.status === 'late' ? 'Late' : 'Present') + '</span><small class="slot-note">Checked in ' + escapeHTML(formatClock(item.checkIn)) + '</small>';
+                } else if (state.status === 'absent') {
+                    statusCell = '<span class="status-badge status-absent">Absent</span><small class="slot-note">No check-in recorded</small>';
+                } else if (state.phase === 'active') {
+                    statusCell = '<span class="status-badge status-awaiting">Awaiting check-in</span><small class="slot-note">Walk past the door camera</small>';
+                } else {
+                    statusCell = '<span class="status-badge status-upcoming">Upcoming</span><small class="slot-note">Face scan at the door</small>';
+                }
+
+                var action = '';
+                if (state.phase === 'active') action = '<span class="live-tag"><span class="live-dot"></span>In session</span>';
+                if (state.phase === 'completed') action = '<a class="row-action" href="CorrReq.html?date=' + encodeURIComponent(localDateValue()) + '&course=' + encodeURIComponent(item.course) + '">Request correction</a>';
+
+                return '<tr' + (state.phase === 'active' ? ' class="schedule-live"' : '') + '>' +
+                    '<td class="course-cell"><strong><span class="course-code">' + escapeHTML(item.code) + '</span>' + escapeHTML(item.course) + '</strong><small>' + escapeHTML(item.room + ' · ' + item.instructor) + '</small></td>' +
+                    '<td class="time-cell">' + escapeHTML(formatClock(item.start) + ' – ' + formatClock(item.end)) + '<small class="slot-note">' + escapeHTML(timeNote) + '</small></td>' +
+                    '<td>' + statusCell + '</td>' +
+                    '<td>' + action + '</td>' +
+                    '</tr>';
+            }).join('');
+
+            var headingDot = document.getElementById('nextClassDot');
+            var headingLabel = document.getElementById('nextClassLabel');
+            if (currentClass) {
+                headingDot.className = 'tiny-dot green';
+                headingLabel.textContent = 'In class now · ' + currentClass.course;
+            } else if (nextClass) {
+                headingDot.className = 'tiny-dot blue';
+                headingLabel.textContent = 'Next: ' + nextClass.course + ' at ' + formatClock(nextClass.start);
+            } else {
+                headingDot.className = 'tiny-dot green';
+                headingLabel.textContent = 'All classes done for today';
+            }
+
+            document.getElementById('statClasses').textContent = String(todayClasses.length);
+            document.getElementById('statClassesFoot').textContent = finishedCount === todayClasses.length
+                ? 'All done for today'
+                : finishedCount + ' done · ' + (todayClasses.length - finishedCount) + ' to go';
+            document.getElementById('todayCountPill').textContent = todayClasses.length + ' classes';
+        }
+
+        // Points the quick action at the latest late or absent class that has no request yet.
+        function renderCorrectionShortcut(ownRequests) {
+            var requested = {};
+            ownRequests.forEach(function (request) { requested[request.date + '|' + request.course] = true; });
+            var flagged = null;
+            historyRecords.forEach(function (record) {
+                if (!flagged && record.status !== 'present' && !requested[record.date + '|' + record.course]) flagged = record;
+            });
+
+            var card = document.getElementById('shortcutCorrection');
+            card.classList.toggle('is-flagged', flagged !== null);
+            card.href = flagged
+                ? 'CorrReq.html?date=' + encodeURIComponent(flagged.date) + '&course=' + encodeURIComponent(flagged.course)
+                : 'CorrReq.html';
+            document.getElementById('shortcutCorrectionText').textContent = flagged
+                ? flagged.course + ' on ' + formatShortDate(flagged.date) + ' was marked ' + flagged.status + '.'
+                : 'Something looks wrong? Ask your instructor to review it.';
+        }
+
+        // Same rule as the admin portal (submittedAtOf in AdminShared.js).
+        function submittedAtOf(request) {
+            if (typeof request.submittedAt === 'number') return request.submittedAt;
+            if (Number(request.id) > 1e12) return Number(request.id);   // CorrReq.html uses Date.now() ids
+            return new Date(request.date + 'T12:00:00').getTime();
+        }
+
+        function renderRequests() {
+            var ownRequests = readSavedList(requestsStorageKey, defaultRequests).filter(function (request) {
+                return request && typeof request === 'object' && (!request.student || request.student === 'Ahmed Mohamed');
+            });
+            // Requests this student sent that a professor or admin has not approved or rejected yet.
+            var pendingRequests = ownRequests.filter(function (request) { return request.status === 'pending'; });
+            var statusIcons = { pending: 'late', approved: 'approved', rejected: 'absent' };
+
+            document.getElementById('statPending').textContent = String(pendingRequests.length).padStart(2, '0');
+            var pendingFoot = document.getElementById('statPendingFoot');
+            if (pendingRequests.length > 0) {
+                var sentTimes = pendingRequests.map(submittedAtOf).filter(function (time) { return isFinite(time); });
+                var oldestSent = sentTimes.length ? new Date(Math.min.apply(null, sentTimes)) : null;
+                var since = '';
+                if (oldestSent) {
+                    since = oldestSent.toDateString() === new Date().toDateString()
+                        ? ' since today'
+                        : ' since ' + oldestSent.toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
+                }
+                pendingFoot.innerHTML = '<span class="tiny-dot amber"></span>' + escapeHTML('Awaiting review' + since);
+            } else if (ownRequests.length > 0) {
+                pendingFoot.innerHTML = '<span class="tiny-dot green"></span>All requests reviewed';
+            } else {
+                pendingFoot.innerHTML = '<span class="tiny-dot green"></span>No requests sent yet';
+            }
+            document.getElementById('requestCountPill').textContent = pendingRequests.length + ' pending';
+
+            // Pending requests first, so the ones counted on the card are always in the list.
+            var listedRequests = pendingRequests.concat(ownRequests.filter(function (request) { return request.status !== 'pending'; }));
+            document.getElementById('dashRequestList').innerHTML = listedRequests.slice(0, 4).map(function (request) {
+                var status = String(request.status);
+                var statusName = status.charAt(0).toUpperCase() + status.slice(1);
+                return '<li><a class="compact-item" href="CorrReq.html">' +
+                    '<span class="notification-icon kind-' + escapeHTML(statusIcons[status] || 'info') + '">' + alertIcon(statusIcons[status]) + '</span>' +
+                    '<span class="compact-copy"><strong>' + escapeHTML(request.course) + '</strong><small>' + escapeHTML(formatShortDate(request.date)) + ' · Requested as ' + escapeHTML(request.requestedStatus) + '</small></span>' +
+                    '<span class="request-status ' + escapeHTML(status) + '">' + escapeHTML(statusName) + '</span></a></li>';
+            }).join('');
+            document.getElementById('dashRequestEmpty').hidden = ownRequests.length > 0;
+
+            renderCorrectionShortcut(ownRequests);
+        }
+
+        function renderAlerts() {
+            var latestAlerts = readSavedList(alertsStorageKey, defaultAlerts).filter(Boolean);
+            var unreadCount = latestAlerts.filter(function (alert) { return alert.unread; }).length;
+            var badge = document.getElementById('shortcutAlertsBadge');
+            badge.textContent = String(unreadCount);
+            badge.hidden = unreadCount === 0;
+            document.getElementById('shortcutAlertsText').textContent = unreadCount === 0
+                ? 'You’re all caught up on your classes.'
+                : 'You have ' + unreadCount + ' unread update' + (unreadCount === 1 ? '' : 's') + '.';
+            document.getElementById('alertCountPill').textContent = unreadCount + ' unread';
+
+            document.getElementById('dashAlertList').innerHTML = latestAlerts.slice(0, 4).map(function (alert) {
+                return '<li><a class="compact-item" href="Alerts.html">' +
+                    '<span class="notification-icon kind-' + escapeHTML(alert.type) + '">' + alertIcon(alert.type) + '</span>' +
+                    '<span class="compact-copy"><strong>' + escapeHTML(alert.title) + '</strong><small>' + escapeHTML(alert.time + ' · ' + alert.tag) + '</small></span>' +
+                    (alert.unread ? '<span class="unread-mark"></span><span class="sr-only">Unread</span>' : '') +
+                    '</a></li>';
+            }).join('');
+            document.getElementById('dashAlertEmpty').hidden = latestAlerts.length > 0;
+        }
+
+        function renderFaceStatus() {
+            var record = null;
+            readSavedList(rosterStorageKey, []).forEach(function (student) {
+                if (student && String(student.id) === studentId) record = student;
+            });
+            var value = document.getElementById('statFace');
+            var foot = document.getElementById('statFaceFoot');
+            if (record && record.faceStatus === 'pending') {
+                value.innerHTML = '<span class="face-dot is-pending"></span>Pending';
+                foot.textContent = record.scanRequestedAt ? 'New face scan requested' : 'Face scan not completed';
+            } else {
+                value.innerHTML = '<span class="face-dot"></span>Enrolled';
+                foot.textContent = record && record.enrolledAt
+                    ? 'Check-ins active since ' + new Date(record.enrolledAt).toLocaleDateString('en-US', { month: 'short', day: 'numeric' })
+                    : 'Face check-ins are active';
+            }
+        }
+
+        function csvCell(value) {
+            var text = String(value == null ? '' : value);
+            if (/^[=+\-@\t\r]/.test(text)) text = "'" + text;   // stop spreadsheet formula injection
+            return '"' + text.replace(/"/g, '""') + '"';
+        }
+
+        function downloadAttendance() {
+            var header = ['Date', 'Course Code', 'Course', 'Room', 'Check-in', 'Check-out', 'Status'];
+            var rows = historyRecords.map(function (record) {
+                return [record.date, record.code, record.course, record.room, record.checkIn, record.checkOut,
+                    record.status.charAt(0).toUpperCase() + record.status.slice(1)];
+            });
+            var csv = '\ufeff' + [header].concat(rows).map(function (row) { return row.map(csvCell).join(','); }).join('\r\n');
+            var url = URL.createObjectURL(new Blob([csv], { type: 'text/csv;charset=utf-8;' }));
+            var link = document.createElement('a');
+            link.href = url;
+            link.download = 'campuslens-my-attendance-' + localDateValue() + '.csv';
+            document.body.appendChild(link);
+            link.click();
+            link.remove();
+            setTimeout(function () { URL.revokeObjectURL(url); }, 1000);
+        }
+
+        function renderDashboard() {
+            renderSchedule();
+            renderRequests();
+            renderAlerts();
+            renderFaceStatus();
+        }
+
+        document.getElementById('shortcutExport').addEventListener('click', downloadAttendance);
+
+        // Requests, alerts and the face ID status can change from the admin portal in another tab.
+        window.addEventListener('storage', function (event) {
+            if (event.key === null || [alertsStorageKey, requestsStorageKey, rosterStorageKey].indexOf(event.key) !== -1) renderDashboard();
+        });
+        // The Back button can restore this page from memory without running it again, so refresh the counts.
+        window.addEventListener('pageshow', function (event) {
+            if (event.persisted) renderDashboard();
+        });
+        setInterval(renderSchedule, 30000);
+        renderDashboard();
     }
 }());

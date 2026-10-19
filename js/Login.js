@@ -105,7 +105,7 @@ loginForm.addEventListener('submit', (e) => {
         if (isAdmin) {
             window.location.href = "AdminDash.html";
         } else {
-            window.location.href = "student_portal.html";
+            window.location.href = "Userdash.html";
         }
     }
 });
