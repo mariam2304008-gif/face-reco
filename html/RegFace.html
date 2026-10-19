@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Register Face | CampusLens</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../css/style.css">
+<link rel="stylesheet" href="../css/CampusPages.css">
+<link rel="stylesheet" href="../css/regFace.css">
+</head>
+<body class="campus-page" data-page="register-face">
+<div class="campus-shell">
+
+  <!-- ===== SIDEBAR ===== -->
+  <aside class="sidebar">
+    <a class="brand" href="Landing.html" aria-label="CampusLens home">
+      <span class="brand-mark">
+        <svg viewBox="0 0 160 160" fill="none" aria-hidden="true"><circle cx="72" cy="72" r="48" stroke="#CDBCF6" stroke-width="6"/><path d="m106 106 26 26" stroke="#A8B7F0" stroke-width="11" stroke-linecap="round"/><path d="M72 43C54 43 45 57 45 75s12 33 27 33 27-14 27-33-9-32-27-32Z" stroke="white" stroke-width="4"/><circle cx="62" cy="70" r="3.5" fill="white"/><circle cx="82" cy="70" r="3.5" fill="white"/><path d="M64 85q8 7 16 0" stroke="white" stroke-width="3" stroke-linecap="round"/></svg>
+      </span>
+      <span>Campus<span class="brand-light">Lens</span><small>STUDENT PORTAL</small></span>
+    </a>
+    <div class="side-caption">WORKSPACE</div>
+    <nav class="side-nav" aria-label="Main navigation">
+      <!-- 1. Dashboard (First Item) -->
+      <a href="Userdash.html" class="nav-link">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="3" width="7" height="9" rx="1.5"/><rect x="14" y="3" width="7" height="5" rx="1.5"/><rect x="14" y="12" width="7" height="9" rx="1.5"/><rect x="3" y="16" width="7" height="5" rx="1.5"/></svg>
+        <span>Dashboard</span>
+      </a>
+
+      <!-- 2. Attendance History -->
+      <a href="History.html" class="nav-link">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 12a9 9 0 1 0 3-6.7L3 8"/><path d="M3 3v5h5M12 7v5l3 2"/></svg>
+        <span>Attendance history</span>
+      </a>
+
+
+      <!-- 4. Correction Requests -->
+      <a href="CorrReq.html" class="nav-link">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m16 4 4 4M4 20l4-.8L19 8a2.1 2.1 0 0 0-3-3L5 16l-1 4Z"/><path d="M12 20h8"/></svg>
+        <span>Correction requests</span>
+      </a>
+
+      <!-- 5. Register Face (Active on this page) -->
+      <a href="RegisterFace.html" class="nav-link active" aria-current="page">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 8V6a2 2 0 0 1 2-2h2M16 4h2a2 2 0 0 1 2 2v2M20 16v2a2 2 0 0 1-2 2h-2M8 20H6a2 2 0 0 1-2-2v-2"/><circle cx="12" cy="11" r="3"/><path d="M7.5 17c1.3-2.3 7.7-2.3 9 0"/></svg>
+        <span>Register face</span>
+      </a>
+
+      <!-- 6. Mark Attendance -->
+      <a href="MarkAtt.html" class="nav-link">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 8V6a2 2 0 0 1 2-2h2M16 4h2a2 2 0 0 1 2 2v2M20 16v2a2 2 0 0 1-2 2h-2M8 20H6a2 2 0 0 1-2-2v-2"/><path d="M9 9.5v1M15 9.5v1M9.5 15a3.5 3.5 0 0 0 5 0"/></svg>
+        <span>Mark attendance</span>
+      </a>
+
+      <!-- 3. Alerts -->
+      <a href="Alerts.html" class="nav-link">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M18 8a6 6 0 0 0-12 0c0 7-3 7-3 9h18c0-2-3-2-3-9M10 21h4"/></svg>
+        <span>Alerts</span><span class="nav-count" data-unread-count>3</span>
+      </a>
+      
+    </nav>
+    <div class="sidebar-bottom">
+      <div class="term-card"><div><strong>Fall semester</strong><span>2025 — 2026</span></div></div>
+      <div class="student-mini"><span class="avatar">AM</span><span><strong>Ahmed Mohamed</strong><small>Computer Science</small></span><span class="online-dot" aria-label="Online"></span></div>
+    </div>
+  </aside>
+
+  <!-- ===== MAIN ===== -->
+  <main class="main-area">
+    <header class="topbar">
+      <div class="crumb"><span>Workspace</span><span class="crumb-slash">/</span><strong>Register Face</strong></div>
+      <div class="top-actions">
+        <span class="today-label" id="todayLabel">MONDAY, OCTOBER 19 · 05:07:44 PM</span>
+        <a class="top-alert" href="Alerts.html" aria-label="Alerts"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M18 8a6 6 0 0 0-12 0c0 7-3 7-3 9h18c0-2-3-2-3-9M10 21h4"/></svg><i></i></a>
+        <span class="avatar top-avatar">AM</span>
+      </div>
+    </header>
+
+    <div class="page-content">
+      <div class="page-heading">
+        <div>
+          <div class="eyebrow"><span class="eyebrow-dot"></span>BIOMETRIC ENROLLMENT</div>
+          <h1>Register your face</h1>
+          <p class="page-lede">Verify your identity using facial recognition</p>
+        </div>
+        <span class="heading-status" id="headStatus"><span class="tiny-dot amber"></span><span>Not enrolled yet</span></span>
+      </div>
+
+      <div class="enroll-layout">
+        <!-- LEFT: capture -->
+        <section class="panel">
+          <div class="panel-heading"><div><span class="section-kicker">CAPTURE</span><h2>Capture your face</h2><p>Take 3 samples with your camera, or upload photos instead.</p></div></div>
+          <div class="tabs" role="tablist">
+            <button class="tab active" data-tab="cam" type="button">Live camera</button>
+            <button class="tab" data-tab="up" type="button">Upload photo</button>
+          </div>
+          <div class="capture-body">
+            <div id="pane-cam">
+              <div class="stage">
+                <div class="stage-msg" id="stageMsg">Camera is off.<br>Press “Start camera” to begin.</div>
+                <video id="video" autoplay playsinline muted hidden></video>
+                <div class="oval" id="oval" hidden></div>
+                <div class="stage-hint" id="stageHint" hidden>Align your face within the frame</div>
+                <div class="flash" id="flash"></div>
+              </div>
+              <div class="btn-row">
+                <button class="button button-primary" id="startBtn" type="button">Start camera</button>
+                <button class="button button-soft" id="capBtn" type="button" disabled>Capture sample (0/3)</button>
+              </div>
+            </div>
+
+            <div id="pane-up" hidden>
+              <label class="drop" id="drop" for="file">
+                <img id="prev" alt="Uploaded photo preview" hidden>
+                <div id="dropTxt"><div class="drop-icon"><svg viewBox="0 0 24 24"><path d="M12 16V4M7 9l5-5 5 5"/><path d="M4 16v3a1 1 0 0 0 1 1h14a1 1 0 0 0 1-1v-3"/></svg></div>
+                  <strong>Drag &amp; drop a photo here</strong><span>Clear, front-facing, passport-style<br>JPG or PNG, up to 5MB</span></div>
+              </label>
+              <input type="file" id="file" accept="image/jpeg,image/png" hidden>
+              <div class="upload-msg" id="upMsg"></div>
+              <div class="btn-row">
+                <button class="button button-primary" id="addUp" type="button" disabled hidden>Add as sample (0/3)</button>
+                <button class="button button-soft" id="clearUp" type="button" hidden>Remove photo</button>
+              </div>
+            </div>
+
+            <div class="chips" aria-live="polite">
+              <span class="chip" id="cFace"><span class="tiny-dot"></span><span>Face detected: —</span></span>
+              <span class="chip" id="cLight"><span class="tiny-dot"></span><span>Lighting: —</span></span>
+              <span class="chip" id="cPose"><span class="tiny-dot"></span><span>Pose angle: —</span></span>
+            </div>
+          </div>
+        </section>
+
+        <!-- RIGHT: guidelines + samples -->
+        <div class="side-stack">
+          <section class="panel">
+            <div class="panel-heading"><div><h2>Registration guidelines</h2></div></div>
+            <ul class="guide-list">
+              <li>Make sure your face is well lit from the front.</li>
+              <li>Position your face inside the central guide.</li>
+              <li>Only <b>one face</b> must be visible in the frame.</li>
+              <li>We take <b>3 quality samples</b> and average them into one template.</li>
+              <li>No actual images are saved; only encrypted biometric vectors.</li>
+            </ul>
+          </section>
+
+          <section class="panel">
+            <div class="panel-heading"><div><h2>Captured samples</h2></div><span class="sample-count" id="sampleCount">0/3</span></div>
+            <div class="samples" id="samples"></div>
+          </section>
+        </div>
+      </div>
+
+      <div class="panel enroll-foot">
+        <p class="privacy"><svg viewBox="0 0 24 24"><rect x="5" y="11" width="14" height="9" rx="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/></svg>Your photos are turned into an encrypted template. The photos themselves are never stored or shared.</p>
+        <button class="button button-primary" id="enrollBtn" type="button" disabled>Complete enrollment</button>
+      </div>
+    </div>
+  </main>
+</div>
+
+<div class="modal-wrap" id="done" hidden>
+  <div class="panel modal">
+    <div class="modal-tick"><svg viewBox="0 0 24 24"><path d="m5 12 5 5 9-10"/></svg></div>
+    <h2>You're enrolled</h2>
+    <p>Your face template is saved. You can now check in at any campus kiosk.</p>
+    <a class="button button-primary" href="Userdash.html" style="width:100%">Back to dashboard</a>
+  </div>
+</div>
+
+<script src="../js/CampusPages.js" defer></script>
+<script src="../js/regFace.js" defer></script>
+</body>
+</html>
